@@ -28,6 +28,12 @@
 		FFA64BBB293637540037091D /* StatisticsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BB9293637540037091D /* StatisticsCollectionViewCell.xib */; };
 		FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BBD29363BA80037091D /* Extension+UIColor.swift */; };
 		FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BBF29363D1A0037091D /* Extension+Data.swift */; };
+		FFA64BC6293649C90037091D /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BC4293649C90037091D /* CardTableViewCell.swift */; };
+		FFA64BC7293649C90037091D /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BC5293649C90037091D /* CardTableViewCell.xib */; };
+		FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BC929364B540037091D /* CardCollectionViewCell.swift */; };
+		FFA64BCC29364B550037091D /* CardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BCA29364B540037091D /* CardCollectionViewCell.xib */; };
+		FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BD12936725E0037091D /* TaskTableViewCell.swift */; };
+		FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BD22936725E0037091D /* TaskTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +62,12 @@
 		FFA64BB9293637540037091D /* StatisticsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsCollectionViewCell.xib; sourceTree = "<group>"; };
 		FFA64BBD29363BA80037091D /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		FFA64BBF29363D1A0037091D /* Extension+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Data.swift"; sourceTree = "<group>"; };
+		FFA64BC4293649C90037091D /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		FFA64BC5293649C90037091D /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
+		FFA64BC929364B540037091D /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		FFA64BCA29364B540037091D /* CardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCollectionViewCell.xib; sourceTree = "<group>"; };
+		FFA64BD12936725E0037091D /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		FFA64BD22936725E0037091D /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +157,7 @@
 		FFA64B9A293630F80037091D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FFA64BB12936353D0037091D /* Statistics */,
+				FFA64BC1293648600037091D /* Main */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -203,6 +215,60 @@
 				FFA64BBF29363D1A0037091D /* Extension+Data.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FFA64BC1293648600037091D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				FFA64BCD2936720D0037091D /* MainTasks */,
+				FFA64BC22936486A0037091D /* Cards */,
+				FFA64BB12936353D0037091D /* Statistics */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		FFA64BC22936486A0037091D /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				FFA64BC829364B360037091D /* CollectionViewCell */,
+				FFA64BC3293648720037091D /* TableViewCell */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		FFA64BC3293648720037091D /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FFA64BC4293649C90037091D /* CardTableViewCell.swift */,
+				FFA64BC5293649C90037091D /* CardTableViewCell.xib */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		FFA64BC829364B360037091D /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FFA64BC929364B540037091D /* CardCollectionViewCell.swift */,
+				FFA64BCA29364B540037091D /* CardCollectionViewCell.xib */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		FFA64BCD2936720D0037091D /* MainTasks */ = {
+			isa = PBXGroup;
+			children = (
+				FFA64BD02936723B0037091D /* TableViewCell */,
+			);
+			path = MainTasks;
+			sourceTree = "<group>";
+		};
+		FFA64BD02936723B0037091D /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FFA64BD12936725E0037091D /* TaskTableViewCell.swift */,
+				FFA64BD22936725E0037091D /* TaskTableViewCell.xib */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,7 +335,10 @@
 				FFA64BBB293637540037091D /* StatisticsCollectionViewCell.xib in Resources */,
 				FFA64B8E293630D50037091D /* Assets.xcassets in Resources */,
 				FFA64BB5293635610037091D /* StatisticsCell.xib in Resources */,
+				FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */,
 				FFA64B8C293630D40037091D /* Main.storyboard in Resources */,
+				FFA64BCC29364B550037091D /* CardCollectionViewCell.xib in Resources */,
+				FFA64BC7293649C90037091D /* CardTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,12 +393,14 @@
 			files = (
 				FFA64BA82936341B0037091D /* Task.swift in Sources */,
 				FFA64BB0293634860037091D /* TaskList.swift in Sources */,
+				FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */,
 				FFA64BB4293635610037091D /* StatisticsCell.swift in Sources */,
 				FFA64BBA293637540037091D /* StatisticsCollectionViewCell.swift in Sources */,
 				FFA64B9D293631A20037091D /* MainViewController.swift in Sources */,
 				FFA64B85293630D40037091D /* AppDelegate.swift in Sources */,
 				FFA64BAE293634660037091D /* Priority.swift in Sources */,
 				FFA64BA6293633FF0037091D /* CategoryColor.swift in Sources */,
+				FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */,
 				FFA64BA12936337C0037091D /* Card.swift in Sources */,
 				FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */,
 				FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */,
@@ -337,6 +408,7 @@
 				FFA64B87293630D40037091D /* SceneDelegate.swift in Sources */,
 				FFA64BAC293634430037091D /* Status.swift in Sources */,
 				FFA64BA3293633B90037091D /* Category.swift in Sources */,
+				FFA64BC6293649C90037091D /* CardTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
