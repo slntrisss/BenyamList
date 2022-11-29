@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="StatisticsCollectionViewCell" customModule="BenyamList" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="317" height="115"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="317" height="115"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PKh-Ox-gJa" customClass="PieChartView" customModule="Charts">
+                        <rect key="frame" x="217" y="11.5" width="92" height="92"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="PKh-Ox-gJa" secondAttribute="height" multiplier="1:1" id="GaX-No-sGU"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zqI-Lx-cT3">
+                        <rect key="frame" x="20" y="25" width="119.5" height="65.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep It Up!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNa-lh-Rh4">
+                                <rect key="frame" x="0.0" y="0.0" width="119.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your current score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yip-Vr-6Ea">
+                                <rect key="frame" x="0.0" y="28.5" width="119.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="overall" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJm-XN-tCh">
+                                <rect key="frame" x="0.0" y="53.5" width="119.5" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="zqI-Lx-cT3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="K1X-jY-4mp"/>
+                <constraint firstItem="PKh-Ox-gJa" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.8" id="Mix-gN-KFX"/>
+                <constraint firstItem="PKh-Ox-gJa" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Sdk-o3-hjJ"/>
+                <constraint firstItem="zqI-Lx-cT3" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="WOk-MR-h4J"/>
+                <constraint firstAttribute="trailing" secondItem="PKh-Ox-gJa" secondAttribute="trailing" constant="8" id="ZEu-oc-MT9"/>
+            </constraints>
+            <size key="customSize" width="317" height="115"/>
+            <connections>
+                <outlet property="chartView" destination="PKh-Ox-gJa" id="P91-UE-xJ3"/>
+                <outlet property="progressType" destination="KJm-XN-tCh" id="LmP-Rv-yAT"/>
+                <outlet property="subTitle" destination="Yip-Vr-6Ea" id="wzf-WG-F6i"/>
+                <outlet property="title" destination="CNa-lh-Rh4" id="Tn4-CK-HHO"/>
+            </connections>
+            <point key="canvasLocation" x="212.31884057971016" y="114.84375"/>
+        </collectionViewCell>
+    </objects>
+</document>
