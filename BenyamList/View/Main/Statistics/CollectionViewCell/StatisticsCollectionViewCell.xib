@@ -17,6 +17,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="317" height="115"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5SC-kP-RXh">
+                        <rect key="frame" x="10" y="10" width="297" height="95"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PKh-Ox-gJa" customClass="PieChartView" customModule="Charts">
                         <rect key="frame" x="217" y="11.5" width="92" height="92"/>
                         <constraints>
@@ -24,7 +27,7 @@
                         </constraints>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zqI-Lx-cT3">
-                        <rect key="frame" x="20" y="25" width="119.5" height="65.5"/>
+                        <rect key="frame" x="20" y="23.5" width="119.5" height="68"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep It Up!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNa-lh-Rh4">
                                 <rect key="frame" x="0.0" y="0.0" width="119.5" height="20.5"/>
@@ -39,8 +42,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="overall" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJm-XN-tCh">
-                                <rect key="frame" x="0.0" y="53.5" width="119.5" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <rect key="frame" x="0.0" y="53.5" width="119.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -50,15 +53,20 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstItem="5SC-kP-RXh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="8JF-nN-N4s"/>
+                <constraint firstAttribute="bottom" secondItem="5SC-kP-RXh" secondAttribute="bottom" constant="10" id="DVK-e1-3ik"/>
+                <constraint firstAttribute="trailing" secondItem="5SC-kP-RXh" secondAttribute="trailing" constant="10" id="EcB-mO-7Py"/>
                 <constraint firstItem="zqI-Lx-cT3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="K1X-jY-4mp"/>
                 <constraint firstItem="PKh-Ox-gJa" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.8" id="Mix-gN-KFX"/>
                 <constraint firstItem="PKh-Ox-gJa" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Sdk-o3-hjJ"/>
                 <constraint firstItem="zqI-Lx-cT3" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="WOk-MR-h4J"/>
                 <constraint firstAttribute="trailing" secondItem="PKh-Ox-gJa" secondAttribute="trailing" constant="8" id="ZEu-oc-MT9"/>
+                <constraint firstItem="5SC-kP-RXh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="cIy-qh-qlu"/>
             </constraints>
             <size key="customSize" width="317" height="115"/>
             <connections>
                 <outlet property="chartView" destination="PKh-Ox-gJa" id="P91-UE-xJ3"/>
+                <outlet property="progressBackgroundView" destination="5SC-kP-RXh" id="VmA-h5-amw"/>
                 <outlet property="progressType" destination="KJm-XN-tCh" id="LmP-Rv-yAT"/>
                 <outlet property="subTitle" destination="Yip-Vr-6Ea" id="wzf-WG-F6i"/>
                 <outlet property="title" destination="CNa-lh-Rh4" id="Tn4-CK-HHO"/>

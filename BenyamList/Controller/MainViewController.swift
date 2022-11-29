@@ -14,6 +14,7 @@ class MainViewController: UITableViewController {
         tableView.register(StatisticsCell.nib(), forCellReuseIdentifier: StatisticsCell.identifier)
         tableView.register(CardTableViewCell.nib(), forCellReuseIdentifier: CardTableViewCell.identifier)
         tableView.register(TaskTableViewCell.nib(), forCellReuseIdentifier: TaskTableViewCell.identifier)
+        tableView.register(TaskHeaderView.nib(), forHeaderFooterViewReuseIdentifier: TaskHeaderView.identifier)
     }
     
     var statistics = [Statistics]()
@@ -27,6 +28,9 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 2{
+            return 60
+        }
         return 10
     }
 
@@ -70,6 +74,14 @@ class MainViewController: UITableViewController {
         }
         
         return 80
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 2 {
+            return tableView.dequeueReusableHeaderFooterView(withIdentifier: TaskHeaderView.identifier) as! TaskHeaderView
+        }
+        return nil
+        
     }
 
 }

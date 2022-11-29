@@ -13,6 +13,7 @@ class StatisticsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var progressType: UILabel!
     @IBOutlet weak var chartView: PieChartView!
+    @IBOutlet weak var progressBackgroundView: UIView!
     
     var statistics:Statistics!
     
@@ -20,6 +21,9 @@ class StatisticsCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        progressBackgroundView.layer.cornerRadius = 5
+        progressBackgroundView.clipsToBounds = true
+        
     }
     
     static func nib() -> UINib{

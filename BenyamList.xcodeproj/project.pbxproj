@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4E7A8EC0E829C241A61EEFA9 /* Pods_BenyamList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9506EE7BD2F5D84FFCCD2991 /* Pods_BenyamList.framework */; };
+		FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9A0C4C293697D60009D328 /* TaskHeaderView.swift */; };
+		FF9A0C4F293697FE0009D328 /* TaskHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9A0C4E293697FE0009D328 /* TaskHeaderView.xib */; };
 		FFA64B85293630D40037091D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64B84293630D40037091D /* AppDelegate.swift */; };
 		FFA64B87293630D40037091D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64B86293630D40037091D /* SceneDelegate.swift */; };
 		FFA64B8C293630D40037091D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFA64B8A293630D40037091D /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		6801B73432991F0003F58B98 /* Pods-BenyamList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BenyamList.debug.xcconfig"; path = "Target Support Files/Pods-BenyamList/Pods-BenyamList.debug.xcconfig"; sourceTree = "<group>"; };
 		9506EE7BD2F5D84FFCCD2991 /* Pods_BenyamList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BenyamList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F409F9BC74D9827AEBE5FAFF /* Pods-BenyamList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BenyamList.release.xcconfig"; path = "Target Support Files/Pods-BenyamList/Pods-BenyamList.release.xcconfig"; sourceTree = "<group>"; };
+		FF9A0C4C293697D60009D328 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
+		FF9A0C4E293697FE0009D328 /* TaskHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskHeaderView.xib; sourceTree = "<group>"; };
 		FFA64B81293630D40037091D /* BenyamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BenyamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA64B84293630D40037091D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFA64B86293630D40037091D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +101,15 @@
 				9506EE7BD2F5D84FFCCD2991 /* Pods_BenyamList.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF9A0C4B293697830009D328 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				FF9A0C4C293697D60009D328 /* TaskHeaderView.swift */,
+				FF9A0C4E293697FE0009D328 /* TaskHeaderView.xib */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		FFA64B78293630D40037091D = {
@@ -157,6 +170,7 @@
 		FFA64B9A293630F80037091D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF9A0C4B293697830009D328 /* TableView */,
 				FFA64BC1293648600037091D /* Main */,
 			);
 			path = View;
@@ -332,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFA64B91293630D50037091D /* LaunchScreen.storyboard in Resources */,
+				FF9A0C4F293697FE0009D328 /* TaskHeaderView.xib in Resources */,
 				FFA64BBB293637540037091D /* StatisticsCollectionViewCell.xib in Resources */,
 				FFA64B8E293630D50037091D /* Assets.xcassets in Resources */,
 				FFA64BB5293635610037091D /* StatisticsCell.xib in Resources */,
@@ -400,6 +415,7 @@
 				FFA64B85293630D40037091D /* AppDelegate.swift in Sources */,
 				FFA64BAE293634660037091D /* Priority.swift in Sources */,
 				FFA64BA6293633FF0037091D /* CategoryColor.swift in Sources */,
+				FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */,
 				FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */,
 				FFA64BA12936337C0037091D /* Card.swift in Sources */,
 				FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */,
