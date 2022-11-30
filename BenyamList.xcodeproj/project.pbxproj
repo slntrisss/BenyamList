@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4E7A8EC0E829C241A61EEFA9 /* Pods_BenyamList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9506EE7BD2F5D84FFCCD2991 /* Pods_BenyamList.framework */; };
+		FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E22B293715C90098EAFC /* NewListViewController.swift */; };
+		FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E22D293724230098EAFC /* Extension+UIView.swift */; };
+		FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */; };
 		FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9A0C4C293697D60009D328 /* TaskHeaderView.swift */; };
 		FF9A0C4F293697FE0009D328 /* TaskHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9A0C4E293697FE0009D328 /* TaskHeaderView.xib */; };
 		FFA64B85293630D40037091D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64B84293630D40037091D /* AppDelegate.swift */; };
@@ -42,6 +45,9 @@
 		6801B73432991F0003F58B98 /* Pods-BenyamList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BenyamList.debug.xcconfig"; path = "Target Support Files/Pods-BenyamList/Pods-BenyamList.debug.xcconfig"; sourceTree = "<group>"; };
 		9506EE7BD2F5D84FFCCD2991 /* Pods_BenyamList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BenyamList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F409F9BC74D9827AEBE5FAFF /* Pods-BenyamList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BenyamList.release.xcconfig"; path = "Target Support Files/Pods-BenyamList/Pods-BenyamList.release.xcconfig"; sourceTree = "<group>"; };
+		FF37E22B293715C90098EAFC /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
+		FF37E22D293724230098EAFC /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskListCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF9A0C4C293697D60009D328 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		FF9A0C4E293697FE0009D328 /* TaskHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskHeaderView.xib; sourceTree = "<group>"; };
 		FFA64B81293630D40037091D /* BenyamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BenyamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +109,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FF37E22F2937438F0098EAFC /* NewTaskList */ = {
+			isa = PBXGroup;
+			children = (
+				FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */,
+			);
+			path = NewTaskList;
+			sourceTree = "<group>";
+		};
 		FF9A0C4B293697830009D328 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				FFA64B9C293631A20037091D /* MainViewController.swift */,
+				FF37E22B293715C90098EAFC /* NewListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -170,6 +185,7 @@
 		FFA64B9A293630F80037091D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF37E22F2937438F0098EAFC /* NewTaskList */,
 				FF9A0C4B293697830009D328 /* TableView */,
 				FFA64BC1293648600037091D /* Main */,
 			);
@@ -227,6 +243,7 @@
 			children = (
 				FFA64BBD29363BA80037091D /* Extension+UIColor.swift */,
 				FFA64BBF29363D1A0037091D /* Extension+Data.swift */,
+				FF37E22D293724230098EAFC /* Extension+UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -409,6 +426,7 @@
 				FFA64BA82936341B0037091D /* Task.swift in Sources */,
 				FFA64BB0293634860037091D /* TaskList.swift in Sources */,
 				FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */,
+				FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */,
 				FFA64BB4293635610037091D /* StatisticsCell.swift in Sources */,
 				FFA64BBA293637540037091D /* StatisticsCollectionViewCell.swift in Sources */,
 				FFA64B9D293631A20037091D /* MainViewController.swift in Sources */,
@@ -419,11 +437,13 @@
 				FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */,
 				FFA64BA12936337C0037091D /* Card.swift in Sources */,
 				FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */,
+				FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */,
 				FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */,
 				FFA64B9F293632BC0037091D /* Statistics.swift in Sources */,
 				FFA64B87293630D40037091D /* SceneDelegate.swift in Sources */,
 				FFA64BAC293634430037091D /* Status.swift in Sources */,
 				FFA64BA3293633B90037091D /* Category.swift in Sources */,
+				FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */,
 				FFA64BC6293649C90037091D /* CardTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

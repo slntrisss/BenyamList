@@ -15,11 +15,20 @@ class MainViewController: UITableViewController {
         tableView.register(CardTableViewCell.nib(), forCellReuseIdentifier: CardTableViewCell.identifier)
         tableView.register(TaskTableViewCell.nib(), forCellReuseIdentifier: TaskTableViewCell.identifier)
         tableView.register(TaskHeaderView.nib(), forHeaderFooterViewReuseIdentifier: TaskHeaderView.identifier)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add List", style: .done, target: self, action: #selector(didTapAddListButton))
     }
     
     var statistics = [Statistics]()
     var cards = [Card]()
     var taskLists = [TaskList]()
+    
+    
+    @objc private func didTapAddListButton(){
+        let vc = NewListViewController()
+        vc.modalPresentationStyle = .popover
+        self.present(UINavigationController(rootViewController: vc), animated: true)
+    }
 
     // MARK: - Table view data source
 
