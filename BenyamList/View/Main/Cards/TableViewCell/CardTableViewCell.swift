@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CardCellProtocol: AnyObject{
+    func cardCellPressed(_ row: Int)
+}
+
 class CardTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cardCollectionView: UICollectionView!
@@ -14,6 +18,7 @@ class CardTableViewCell: UITableViewCell {
     static let identifier = "CardTableViewCell"
     
     var cards = [Card]()
+    weak var cardCellDelegate: CardCellProtocol!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -78,6 +83,10 @@ extension CardTableViewCell: UICollectionViewDataSource, UICollectionViewDelegat
         let section = NSCollectionLayoutSection(group: mainGroup)
         
         return UICollectionViewCompositionalLayout(section: section)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cardCellDelegate.cardCellPressed(indexPath.row)
     }
     
 }

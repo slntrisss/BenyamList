@@ -39,6 +39,9 @@
 		FFA64BCC29364B550037091D /* CardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BCA29364B540037091D /* CardCollectionViewCell.xib */; };
 		FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BD12936725E0037091D /* TaskTableViewCell.swift */; };
 		FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BD22936725E0037091D /* TaskTableViewCell.xib */; };
+		FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B5192938C3440062D15B /* TaskListViewController.swift */; };
+		FFE6B5212938EE2F0062D15B /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B51F2938EE2F0062D15B /* CalendarViewCell.swift */; };
+		FFE6B5222938EE2F0062D15B /* CalendarViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFE6B5202938EE2F0062D15B /* CalendarViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +81,9 @@
 		FFA64BCA29364B540037091D /* CardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCollectionViewCell.xib; sourceTree = "<group>"; };
 		FFA64BD12936725E0037091D /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		FFA64BD22936725E0037091D /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
+		FFE6B5192938C3440062D15B /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
+		FFE6B51F2938EE2F0062D15B /* CalendarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
+		FFE6B5202938EE2F0062D15B /* CalendarViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +171,7 @@
 			children = (
 				FFA64B9C293631A20037091D /* MainViewController.swift */,
 				FF37E22B293715C90098EAFC /* NewListViewController.swift */,
+				FFE6B5192938C3440062D15B /* TaskListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -185,6 +192,7 @@
 		FFA64B9A293630F80037091D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FFE6B51C2938EDC40062D15B /* Sections */,
 				FF37E22F2937438F0098EAFC /* NewTaskList */,
 				FF9A0C4B293697830009D328 /* TableView */,
 				FFA64BC1293648600037091D /* Main */,
@@ -302,6 +310,31 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		FFE6B51C2938EDC40062D15B /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				FFE6B51D2938EDC90062D15B /* All */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		FFE6B51D2938EDC90062D15B /* All */ = {
+			isa = PBXGroup;
+			children = (
+				FFE6B51E2938EDFD0062D15B /* Planner */,
+			);
+			path = All;
+			sourceTree = "<group>";
+		};
+		FFE6B51E2938EDFD0062D15B /* Planner */ = {
+			isa = PBXGroup;
+			children = (
+				FFE6B51F2938EE2F0062D15B /* CalendarViewCell.swift */,
+				FFE6B5202938EE2F0062D15B /* CalendarViewCell.xib */,
+			);
+			path = Planner;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -368,6 +401,7 @@
 				FFA64B8E293630D50037091D /* Assets.xcassets in Resources */,
 				FFA64BB5293635610037091D /* StatisticsCell.xib in Resources */,
 				FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */,
+				FFE6B5222938EE2F0062D15B /* CalendarViewCell.xib in Resources */,
 				FFA64B8C293630D40037091D /* Main.storyboard in Resources */,
 				FFA64BCC29364B550037091D /* CardCollectionViewCell.xib in Resources */,
 				FFA64BC7293649C90037091D /* CardTableViewCell.xib in Resources */,
@@ -425,9 +459,11 @@
 			files = (
 				FFA64BA82936341B0037091D /* Task.swift in Sources */,
 				FFA64BB0293634860037091D /* TaskList.swift in Sources */,
+				FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */,
 				FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */,
 				FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */,
 				FFA64BB4293635610037091D /* StatisticsCell.swift in Sources */,
+				FFE6B5212938EE2F0062D15B /* CalendarViewCell.swift in Sources */,
 				FFA64BBA293637540037091D /* StatisticsCollectionViewCell.swift in Sources */,
 				FFA64B9D293631A20037091D /* MainViewController.swift in Sources */,
 				FFA64B85293630D40037091D /* AppDelegate.swift in Sources */,

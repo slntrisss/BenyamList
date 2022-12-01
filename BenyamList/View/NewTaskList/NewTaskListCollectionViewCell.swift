@@ -11,8 +11,16 @@ class NewTaskListCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet{
-            checkSelected()
+            if isSelected{
+                select()
+            }else{
+                deselect()
+            }
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
     
     private let borderView: UIView = {
@@ -37,15 +45,17 @@ class NewTaskListCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         addSubview(colorView)
         addSubview(borderView)
+        if isSelected{
+            borderView.isHidden = false
+        }
     }
     
     func configure(with color: CategoryColor, and height: CGFloat){
         colorView.backgroundColor = .getColor(from: color)
         setupView(with: height)
-        checkSelected()
     }
     
-    func selected(){
+    func select(){
         borderView.isHidden = false
     }
 
@@ -63,14 +73,6 @@ class NewTaskListCollectionViewCell: UICollectionViewCell {
         let borderViewHeight = colorViewHeight + 11
         borderView.layer.cornerRadius = borderViewWidth / 2
         borderView.frame = CGRect(x: (contentView.width - borderViewWidth) / 2, y: (contentView.height - borderViewHeight) / 2, width: borderViewWidth, height: borderViewHeight)
-    }
-    
-    private func checkSelected(){
-        if self.isSelected{
-            selected()
-        }else{
-            deselect()
-        }
     }
 
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 class MainViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class MainViewController: UITableViewController {
     @objc private func didTapAddListButton(){
         let vc = NewListViewController()
         vc.modalPresentationStyle = .popover
+        vc.newTaskListDelegate = self
         self.present(UINavigationController(rootViewController: vc), animated: true)
     }
 
@@ -62,6 +64,7 @@ class MainViewController: UITableViewController {
         }
         else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: CardTableViewCell.identifier, for: indexPath) as! CardTableViewCell
+            cell.cardCellDelegate = self
             cell.configure(with: cards)
             return cell
         }
@@ -93,4 +96,23 @@ class MainViewController: UITableViewController {
         
     }
 
+}
+
+extension MainViewController: NewTaskList, CardCellProtocol{
+    func cardCellPressed(_ row: Int) {
+        if row == 1{
+            let vc = TaskListViewController()
+            vc.title = "All"
+            let navController = UINavigationController(rootViewController: vc)
+            navController.modalPresentationStyle = .fullScreen
+            self.present(navController, animated: true)
+        }
+    }
+    
+    func saveTaskList(_ taskList: TaskList) {
+        taskLists.append(taskList)
+        let index = taskLists.count - 1
+        let indexPath = IndexPath(item: index, section: 2)
+        tableView.insertRows(at: [indexPath], with: .fade)
+    }
 }

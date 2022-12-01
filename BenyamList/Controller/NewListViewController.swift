@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol NewTaskList: AnyObject{
+    func saveTaskList(_ taskList: TaskList)
+}
+
 class NewListViewController: UIViewController {
     
     private let scrollView: UIScrollView = {
@@ -42,6 +46,7 @@ class NewListViewController: UIViewController {
         field.placeholder = "Task List Name"
         field.layer.cornerRadius = 12
         field.backgroundColor = .systemGray5
+        field.returnKeyType = .done
         field.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         field.textColor = .getColor(from: .dodgerBlue)
         return field
@@ -56,6 +61,10 @@ class NewListViewController: UIViewController {
         collectionView.clipsToBounds = true
         return collectionView
     }()
+    
+    private var taskList: TaskList!
+    private var categoryColor: CategoryColor!
+    weak var newTaskListDelegate: NewTaskList!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +94,14 @@ class NewListViewController: UIViewController {
         setupCollectionView()
     }
     
-    @objc private func didTapSaveButton(){}
+    @objc private func didTapSaveButton(){
+        guard let taskListName = textField.text else {return}
+        
+        let category = Category(name: taskListName, color: categoryColor)
+        let taskList = TaskList(category: category, tasks: [])
+        newTaskListDelegate.saveTaskList(taskList)
+        self.navigationController?.dismiss(animated: true)
+    }
 
     @objc private func didTapCancelButton(){
         self.navigationController?.dismiss(animated: true)
@@ -152,9 +168,6 @@ extension NewListViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewTaskListCollectionViewCell.identifier, for: indexPath) as! NewTaskListCollectionViewCell
         let color = CategoryColor.allCases[indexPath.row]
-        if color == .dodgerBlue{
-            cell.isSelected = true
-        }
         cell.configure(with: color, and: newListView.width * 0.25)
         return cell
     }
@@ -166,10 +179,7 @@ extension NewListViewController: UICollectionViewDelegate, UICollectionViewDataS
         self.textField.textColor = color
         cell.isSelected = true
         iconView.backgroundColor = color
+        categoryColor = CategoryColor.allCases[indexPath.row]
     }
-    
-}
-
-extension NewListViewController: UITextFieldDelegate{
     
 }
