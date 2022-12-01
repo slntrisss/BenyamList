@@ -7,4 +7,5 @@ target 'BenyamList' do
 
   # Pods for BenyamList
   pod 'Charts'
+  pod 'FSCalendar'
 end

@@ -40,8 +40,7 @@
 		FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BD12936725E0037091D /* TaskTableViewCell.swift */; };
 		FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BD22936725E0037091D /* TaskTableViewCell.xib */; };
 		FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B5192938C3440062D15B /* TaskListViewController.swift */; };
-		FFE6B5212938EE2F0062D15B /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B51F2938EE2F0062D15B /* CalendarViewCell.swift */; };
-		FFE6B5222938EE2F0062D15B /* CalendarViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFE6B5202938EE2F0062D15B /* CalendarViewCell.xib */; };
+		FFE6B52E2938FD7D0062D15B /* DateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B52C2938FD7D0062D15B /* DateViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,8 +81,7 @@
 		FFA64BD12936725E0037091D /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		FFA64BD22936725E0037091D /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		FFE6B5192938C3440062D15B /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
-		FFE6B51F2938EE2F0062D15B /* CalendarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
-		FFE6B5202938EE2F0062D15B /* CalendarViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewCell.xib; sourceTree = "<group>"; };
+		FFE6B52C2938FD7D0062D15B /* DateViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +190,7 @@
 		FFA64B9A293630F80037091D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FFE6B51C2938EDC40062D15B /* Sections */,
+				FFE6B5292938FCF80062D15B /* Sections */,
 				FF37E22F2937438F0098EAFC /* NewTaskList */,
 				FF9A0C4B293697830009D328 /* TableView */,
 				FFA64BC1293648600037091D /* Main */,
@@ -310,29 +308,28 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
-		FFE6B51C2938EDC40062D15B /* Sections */ = {
+		FFE6B5292938FCF80062D15B /* Sections */ = {
 			isa = PBXGroup;
 			children = (
-				FFE6B51D2938EDC90062D15B /* All */,
+				FFE6B52A2938FD010062D15B /* All */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
 		};
-		FFE6B51D2938EDC90062D15B /* All */ = {
+		FFE6B52A2938FD010062D15B /* All */ = {
 			isa = PBXGroup;
 			children = (
-				FFE6B51E2938EDFD0062D15B /* Planner */,
+				FFE6B52B2938FD0E0062D15B /* Calendar */,
 			);
 			path = All;
 			sourceTree = "<group>";
 		};
-		FFE6B51E2938EDFD0062D15B /* Planner */ = {
+		FFE6B52B2938FD0E0062D15B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				FFE6B51F2938EE2F0062D15B /* CalendarViewCell.swift */,
-				FFE6B5202938EE2F0062D15B /* CalendarViewCell.xib */,
+				FFE6B52C2938FD7D0062D15B /* DateViewCell.swift */,
 			);
-			path = Planner;
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,7 +398,6 @@
 				FFA64B8E293630D50037091D /* Assets.xcassets in Resources */,
 				FFA64BB5293635610037091D /* StatisticsCell.xib in Resources */,
 				FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */,
-				FFE6B5222938EE2F0062D15B /* CalendarViewCell.xib in Resources */,
 				FFA64B8C293630D40037091D /* Main.storyboard in Resources */,
 				FFA64BCC29364B550037091D /* CardCollectionViewCell.xib in Resources */,
 				FFA64BC7293649C90037091D /* CardTableViewCell.xib in Resources */,
@@ -463,7 +459,6 @@
 				FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */,
 				FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */,
 				FFA64BB4293635610037091D /* StatisticsCell.swift in Sources */,
-				FFE6B5212938EE2F0062D15B /* CalendarViewCell.swift in Sources */,
 				FFA64BBA293637540037091D /* StatisticsCollectionViewCell.swift in Sources */,
 				FFA64B9D293631A20037091D /* MainViewController.swift in Sources */,
 				FFA64B85293630D40037091D /* AppDelegate.swift in Sources */,
@@ -472,6 +467,7 @@
 				FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */,
 				FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */,
 				FFA64BA12936337C0037091D /* Card.swift in Sources */,
+				FFE6B52E2938FD7D0062D15B /* DateViewCell.swift in Sources */,
 				FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */,
 				FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */,
 				FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */,

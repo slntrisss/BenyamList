@@ -23,6 +23,8 @@ class MainViewController: UITableViewController {
     var statistics = [Statistics]()
     var cards = [Card]()
     var taskLists = [TaskList]()
+    var allTasks = [Task]()
+    var allCategories = [Category]()
     
     
     @objc private func didTapAddListButton(){
@@ -95,13 +97,24 @@ class MainViewController: UITableViewController {
         return nil
         
     }
+    
+    //MARK: - Helper funcs
+    
+    private func setAdditinalData(){
+        for taskList in taskLists {
+            allTasks += taskList.tasks
+            allCategories.append(taskList.category)
+        }
+    }
 
 }
 
 extension MainViewController: NewTaskList, CardCellProtocol{
     func cardCellPressed(_ row: Int) {
         if row == 1{
+            setAdditinalData()
             let vc = TaskListViewController()
+            vc.tasks = allTasks
             vc.title = "All"
             let navController = UINavigationController(rootViewController: vc)
             navController.modalPresentationStyle = .fullScreen
