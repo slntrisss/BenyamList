@@ -39,8 +39,11 @@
 		FFA64BCC29364B550037091D /* CardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BCA29364B540037091D /* CardCollectionViewCell.xib */; };
 		FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BD12936725E0037091D /* TaskTableViewCell.swift */; };
 		FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BD22936725E0037091D /* TaskTableViewCell.xib */; };
+		FFD389BC293F76D1005F4CFA /* DateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD389BB293F76D1005F4CFA /* DateViewCell.swift */; };
 		FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B5192938C3440062D15B /* TaskListViewController.swift */; };
-		FFE6B52E2938FD7D0062D15B /* DateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B52C2938FD7D0062D15B /* DateViewCell.swift */; };
+		FFFC52F329391D93004CA5D6 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC52F229391D93004CA5D6 /* WeekCell.swift */; };
+		FFFC52F5293920CB004CA5D6 /* WeekDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC52F4293920CB004CA5D6 /* WeekDays.swift */; };
+		FFFC52F7293923D4004CA5D6 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC52F6293923D4004CA5D6 /* Extension+Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,8 +83,11 @@
 		FFA64BCA29364B540037091D /* CardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCollectionViewCell.xib; sourceTree = "<group>"; };
 		FFA64BD12936725E0037091D /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		FFA64BD22936725E0037091D /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
+		FFD389BB293F76D1005F4CFA /* DateViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewCell.swift; sourceTree = "<group>"; };
 		FFE6B5192938C3440062D15B /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
-		FFE6B52C2938FD7D0062D15B /* DateViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewCell.swift; sourceTree = "<group>"; };
+		FFFC52F229391D93004CA5D6 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
+		FFFC52F4293920CB004CA5D6 /* WeekDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDays.swift; sourceTree = "<group>"; };
+		FFFC52F6293923D4004CA5D6 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +189,7 @@
 				FFA64BA02936337C0037091D /* Card.swift */,
 				FFA64BA2293633B90037091D /* Category.swift */,
 				FFA64BA72936341B0037091D /* Task.swift */,
+				FFFC52F4293920CB004CA5D6 /* WeekDays.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,6 +257,7 @@
 				FFA64BBD29363BA80037091D /* Extension+UIColor.swift */,
 				FFA64BBF29363D1A0037091D /* Extension+Data.swift */,
 				FF37E22D293724230098EAFC /* Extension+UIView.swift */,
+				FFFC52F6293923D4004CA5D6 /* Extension+Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -327,9 +335,18 @@
 		FFE6B52B2938FD0E0062D15B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				FFE6B52C2938FD7D0062D15B /* DateViewCell.swift */,
+				FFD389BB293F76D1005F4CFA /* DateViewCell.swift */,
+				FFFC52F129391D6F004CA5D6 /* WeekView */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		FFFC52F129391D6F004CA5D6 /* WeekView */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC52F229391D93004CA5D6 /* WeekCell.swift */,
+			);
+			path = WeekView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFFC52F5293920CB004CA5D6 /* WeekDays.swift in Sources */,
 				FFA64BA82936341B0037091D /* Task.swift in Sources */,
 				FFA64BB0293634860037091D /* TaskList.swift in Sources */,
 				FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */,
@@ -464,10 +482,12 @@
 				FFA64B85293630D40037091D /* AppDelegate.swift in Sources */,
 				FFA64BAE293634660037091D /* Priority.swift in Sources */,
 				FFA64BA6293633FF0037091D /* CategoryColor.swift in Sources */,
+				FFFC52F7293923D4004CA5D6 /* Extension+Date.swift in Sources */,
 				FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */,
+				FFD389BC293F76D1005F4CFA /* DateViewCell.swift in Sources */,
+				FFFC52F329391D93004CA5D6 /* WeekCell.swift in Sources */,
 				FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */,
 				FFA64BA12936337C0037091D /* Card.swift in Sources */,
-				FFE6B52E2938FD7D0062D15B /* DateViewCell.swift in Sources */,
 				FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */,
 				FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */,
 				FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */,

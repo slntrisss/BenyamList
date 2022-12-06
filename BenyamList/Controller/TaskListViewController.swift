@@ -63,6 +63,13 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         if indexPath.section == 0 {
             return view.height * 0.3
         }
+        else if indexPath.section == 1{
+            return view.height * 0.3 * 0.5
+        }
         return 80
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

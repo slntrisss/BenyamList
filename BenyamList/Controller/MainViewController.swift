@@ -27,6 +27,7 @@ class MainViewController: UITableViewController {
     var allCategories = [Category]()
     
     
+    
     @objc private func didTapAddListButton(){
         let vc = NewListViewController()
         vc.modalPresentationStyle = .popover
@@ -113,10 +114,10 @@ extension MainViewController: NewTaskList, CardCellProtocol{
     func cardCellPressed(_ row: Int) {
         if row == 1{
             setAdditinalData()
-            let vc = TaskListViewController()
-            vc.tasks = allTasks
-            vc.title = "All"
-            let navController = UINavigationController(rootViewController: vc)
+            let taskListVC = TaskListViewController()
+            taskListVC.tasks = allTasks
+            taskListVC.title = "All"
+            let navController = UINavigationController(rootViewController: taskListVC)
             navController.modalPresentationStyle = .fullScreen
             self.present(navController, animated: true)
         }
