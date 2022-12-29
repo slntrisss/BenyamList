@@ -11,7 +11,14 @@ class WeekCell: UICollectionViewCell {
     
     static let identifier = "WeekCell"
     
-    var weekViewWidth: CGFloat!
+    private var weekDays: WeekDays?
+    private var index: Int?
+    
+    override var isSelected: Bool{
+        didSet{
+            checkIfSelected()
+        }
+    }
     
     private var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -19,7 +26,6 @@ class WeekCell: UICollectionViewCell {
         stackView.distribution = .fillEqually
         stackView.alignment = .center
         stackView.axis = .vertical
-        stackView.spacing = CGFloat(8)
         return stackView
     }()
     
@@ -27,8 +33,8 @@ class WeekCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.textColor = .darkGray
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         return label
     }()
     
@@ -36,8 +42,8 @@ class WeekCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        label.textColor = .systemGray
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         return label
     }()
     
@@ -47,10 +53,13 @@ class WeekCell: UICollectionViewCell {
         backgroundColor = .systemGray5
 
         self.contentView.addSubview(stackView)
-        [dayOfTheMonth, dayOfTheWeek].forEach{stackView.addArrangedSubview($0)}
+        [dayOfTheWeek, dayOfTheMonth].forEach{stackView.addArrangedSubview($0)}
 
         //stackview
         stackView.anchor(leading: self.contentView.leadingAnchor, top: self.contentView.topAnchor, trailing: self.contentView.trailingAnchor, bottom: self.contentView.bottomAnchor)
+        
+        self.layer.cornerRadius = 12
+        self.clipsToBounds = true
         
     }
     
@@ -59,7 +68,33 @@ class WeekCell: UICollectionViewCell {
     }
     
     func configure(_ weekDays: WeekDays, _ index: Int){
+        self.weekDays = weekDays
+        self.index = index
+        if Date.now.getDayOfTheMonth() == weekDays.weekDate[index].getDayOfTheMonth(){
+            backgroundColor = UIColor.systemBlue
+            dayOfTheWeek.textColor = .white
+            dayOfTheMonth.textColor = .white
+        }
         dayOfTheMonth.text = weekDays.weekDate[index].getDayOfTheMonth()
         dayOfTheWeek.text = weekDays.daysOfTheWeek[index]
+    }
+    
+    private func checkIfSelected(){
+        
+        if let weekDays = self.weekDays, let index = self.index,
+           Date.now.getDayOfTheMonth() == weekDays.weekDate[index].getDayOfTheMonth(){
+            return
+        }
+        
+        if isSelected{
+            backgroundColor = .hexStringToUIColor(hex: "#FFA400")
+            dayOfTheWeek.textColor = .darkGray
+            dayOfTheMonth.textColor = .black
+        }
+        else{
+            backgroundColor = .systemGray5
+            dayOfTheWeek.textColor = .systemGray
+            dayOfTheMonth.textColor = .darkGray
+        }
     }
 }

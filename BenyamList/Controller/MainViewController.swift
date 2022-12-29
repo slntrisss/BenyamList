@@ -112,14 +112,13 @@ class MainViewController: UITableViewController {
 
 extension MainViewController: NewTaskList, CardCellProtocol{
     func cardCellPressed(_ row: Int) {
-        if row == 1{
+        if row == 2{
             setAdditinalData()
             let taskListVC = TaskListViewController()
             taskListVC.tasks = allTasks
+            taskListVC.categories = allCategories
             taskListVC.title = "All"
-            let navController = UINavigationController(rootViewController: taskListVC)
-            navController.modalPresentationStyle = .fullScreen
-            self.present(navController, animated: true)
+            self.navigationController?.pushViewController(taskListVC, animated: true)
         }
     }
     

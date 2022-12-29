@@ -19,6 +19,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }()
     
     var tasks: [Task]!
+    var categories: [Category]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +27,26 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(DateViewCell.self, forCellReuseIdentifier: DateViewCell.identifier)
-        
+        tableView.register(CategoryViewCell.self, forCellReuseIdentifier: CategoryViewCell.identifier)
+        tableView.register(AllTaskTableViewCell.nib(), forCellReuseIdentifier: AllTaskTableViewCell.identifier)
         
         //addSubviews
         view.addSubview(tableView)
         tableView.anchor(leading: view.leadingAnchor, top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor)
+        categories.insert(Category(name: "All", color: .dodgerBlue), at: 0)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Task",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(addNewTask))
+        
+    }
+    
+    @objc func addNewTask(){
+        let newTaskVC = TaskViewController()
+        let navBar = UINavigationController(rootViewController: newTaskVC)
+        newTaskVC.title = "New Task"
+        navBar.modalPresentationStyle = .popover
+        present(navBar, animated: true)
     }
 
     // MARK: - Table view data source
@@ -40,7 +56,11 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 250
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +75,13 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = tableView.dequeueReusableCell(withIdentifier: DateViewCell.identifier, for: indexPath) as! DateViewCell
             return cell
         }
-        let cell = UITableViewCell()
+        else if indexPath.section == 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier: CategoryViewCell.identifier, for: indexPath) as! CategoryViewCell
+            cell.categories = categories
+            return cell
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: AllTaskTableViewCell.identifier, for: indexPath) as! AllTaskTableViewCell
+        cell.configure(with: tasks[indexPath.row])
         return cell
     }
     
@@ -64,9 +90,9 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             return view.height * 0.3
         }
         else if indexPath.section == 1{
-            return view.height * 0.3 * 0.5
+            return 60
         }
-        return 80
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

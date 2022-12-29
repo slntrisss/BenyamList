@@ -11,6 +11,15 @@
 		FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E22B293715C90098EAFC /* NewListViewController.swift */; };
 		FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E22D293724230098EAFC /* Extension+UIView.swift */; };
 		FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */; };
+		FF5B45C529408A9900F7CAB8 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */; };
+		FF5B45CE2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */; };
+		FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */; };
+		FF5B45D72940CF6100F7CAB8 /* AllTaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5B45D52940CF6100F7CAB8 /* AllTaskTableViewCell.xib */; };
+		FF5B45DC2940D27900F7CAB8 /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45DB2940D27900F7CAB8 /* UILabelPadding.swift */; };
+		FF802017295A092000F94AE9 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF802016295A092000F94AE9 /* TaskViewController.swift */; };
+		FF80201C295A0DDF00F94AE9 /* NewTaskDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */; };
+		FF80201E295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */; };
+		FF802022295A344C00F94AE9 /* NewTaskReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF802021295A344C00F94AE9 /* NewTaskReminderCell.swift */; };
 		FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9A0C4C293697D60009D328 /* TaskHeaderView.swift */; };
 		FF9A0C4F293697FE0009D328 /* TaskHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9A0C4E293697FE0009D328 /* TaskHeaderView.xib */; };
 		FFA64B85293630D40037091D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64B84293630D40037091D /* AppDelegate.swift */; };
@@ -53,6 +62,15 @@
 		FF37E22B293715C90098EAFC /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
 		FF37E22D293724230098EAFC /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskListCollectionViewCell.swift; sourceTree = "<group>"; };
+		FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTaskTableViewCell.swift; sourceTree = "<group>"; };
+		FF5B45D52940CF6100F7CAB8 /* AllTaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllTaskTableViewCell.xib; sourceTree = "<group>"; };
+		FF5B45DB2940D27900F7CAB8 /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
+		FF802016295A092000F94AE9 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskDetailCell.swift; sourceTree = "<group>"; };
+		FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskDateAndTimeCell.swift; sourceTree = "<group>"; };
+		FF802021295A344C00F94AE9 /* NewTaskReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskReminderCell.swift; sourceTree = "<group>"; };
 		FF9A0C4C293697D60009D328 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		FF9A0C4E293697FE0009D328 /* TaskHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskHeaderView.xib; sourceTree = "<group>"; };
 		FFA64B81293630D40037091D /* BenyamList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BenyamList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +145,50 @@
 			path = NewTaskList;
 			sourceTree = "<group>";
 		};
+		FF5B45C329408A1E00F7CAB8 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */,
+				FF5B45C829408C5500F7CAB8 /* CollectionViewCell */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		FF5B45C829408C5500F7CAB8 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		FF5B45CF2940CD0200F7CAB8 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */,
+				FF5B45D52940CF6100F7CAB8 /* AllTaskTableViewCell.xib */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		FF5B45D82940D24200F7CAB8 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				FF5B45DB2940D27900F7CAB8 /* UILabelPadding.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		FF80201A295A0B0100F94AE9 /* New Task */ = {
+			isa = PBXGroup;
+			children = (
+				FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */,
+				FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */,
+				FF802021295A344C00F94AE9 /* NewTaskReminderCell.swift */,
+			);
+			path = "New Task";
+			sourceTree = "<group>";
+		};
 		FF9A0C4B293697830009D328 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +238,7 @@
 				FFA64B9C293631A20037091D /* MainViewController.swift */,
 				FF37E22B293715C90098EAFC /* NewListViewController.swift */,
 				FFE6B5192938C3440062D15B /* TaskListViewController.swift */,
+				FF802016295A092000F94AE9 /* TaskViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -197,6 +260,8 @@
 		FFA64B9A293630F80037091D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF80201A295A0B0100F94AE9 /* New Task */,
+				FF5B45D82940D24200F7CAB8 /* Label */,
 				FFE6B5292938FCF80062D15B /* Sections */,
 				FF37E22F2937438F0098EAFC /* NewTaskList */,
 				FF9A0C4B293697830009D328 /* TableView */,
@@ -327,6 +392,8 @@
 		FFE6B52A2938FD010062D15B /* All */ = {
 			isa = PBXGroup;
 			children = (
+				FF5B45CF2940CD0200F7CAB8 /* Task */,
+				FF5B45C329408A1E00F7CAB8 /* Category */,
 				FFE6B52B2938FD0E0062D15B /* Calendar */,
 			);
 			path = All;
@@ -417,6 +484,7 @@
 				FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */,
 				FFA64B8C293630D40037091D /* Main.storyboard in Resources */,
 				FFA64BCC29364B550037091D /* CardCollectionViewCell.xib in Resources */,
+				FF5B45D72940CF6100F7CAB8 /* AllTaskTableViewCell.xib in Resources */,
 				FFA64BC7293649C90037091D /* CardTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,7 +543,10 @@
 				FFA64BB0293634860037091D /* TaskList.swift in Sources */,
 				FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */,
 				FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */,
+				FF5B45CE2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift in Sources */,
+				FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */,
 				FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */,
+				FF5B45C529408A9900F7CAB8 /* CategoryViewCell.swift in Sources */,
 				FFA64BB4293635610037091D /* StatisticsCell.swift in Sources */,
 				FFA64BBA293637540037091D /* StatisticsCollectionViewCell.swift in Sources */,
 				FFA64B9D293631A20037091D /* MainViewController.swift in Sources */,
@@ -483,18 +554,23 @@
 				FFA64BAE293634660037091D /* Priority.swift in Sources */,
 				FFA64BA6293633FF0037091D /* CategoryColor.swift in Sources */,
 				FFFC52F7293923D4004CA5D6 /* Extension+Date.swift in Sources */,
+				FF802022295A344C00F94AE9 /* NewTaskReminderCell.swift in Sources */,
 				FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */,
 				FFD389BC293F76D1005F4CFA /* DateViewCell.swift in Sources */,
+				FF802017295A092000F94AE9 /* TaskViewController.swift in Sources */,
+				FF5B45DC2940D27900F7CAB8 /* UILabelPadding.swift in Sources */,
 				FFFC52F329391D93004CA5D6 /* WeekCell.swift in Sources */,
 				FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */,
 				FFA64BA12936337C0037091D /* Card.swift in Sources */,
 				FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */,
+				FF80201C295A0DDF00F94AE9 /* NewTaskDetailCell.swift in Sources */,
 				FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */,
 				FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */,
 				FFA64B9F293632BC0037091D /* Statistics.swift in Sources */,
 				FFA64B87293630D40037091D /* SceneDelegate.swift in Sources */,
 				FFA64BAC293634430037091D /* Status.swift in Sources */,
 				FFA64BA3293633B90037091D /* Category.swift in Sources */,
+				FF80201E295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift in Sources */,
 				FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */,
 				FFA64BC6293649C90037091D /* CardTableViewCell.swift in Sources */,
 			);

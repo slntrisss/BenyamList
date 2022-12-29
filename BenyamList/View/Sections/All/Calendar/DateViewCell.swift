@@ -12,6 +12,7 @@ class DateViewCell: UITableViewCell {
     
     static let identifier = "DateViewCell"
     
+    //WeekView
     let weekDays = WeekDays.getData()
     let minimumInterSpacing:CGFloat = 5
     let itemSpacing:CGFloat = 5
@@ -49,10 +50,21 @@ class DateViewCell: UITableViewCell {
         return collectionView
     }()
     
+    lazy private var dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = formatDate(date: Date.now)
+        label.alpha = 0
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.textColor = .darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
-        [calendarView, weekCollectionView, segmentedControll].forEach{self.contentView.addSubview($0)}
+        [calendarView, weekCollectionView, segmentedControll, dateLabel].forEach{self.contentView.addSubview($0)}
         setupViewContraints()
     }
     
@@ -64,10 +76,12 @@ class DateViewCell: UITableViewCell {
     @objc private func changeCalendarView(sender : UISegmentedControl){
         if sender.selectedSegmentIndex == 0 {
             weekCollectionView.alpha = 0
+            dateLabel.alpha = 0
             calendarView.alpha = 1
         }else{
             calendarView.alpha = 0
             weekCollectionView.alpha = 1
+            dateLabel.alpha = 1
         }
     }
     
@@ -78,6 +92,7 @@ class DateViewCell: UITableViewCell {
         setupSegmentedControll()
         setupCalendarView()
         setupWeekView()
+        setupDateLabel()
     }
     
     private func setupCalendarView(){
@@ -92,6 +107,18 @@ class DateViewCell: UITableViewCell {
     private func setupSegmentedControll() {
         segmentedControll.centerAnchor(centerX: self.contentView.centerXAnchor, centerY: nil, xPadding: 0, yPadding: 0)
         segmentedControll.sizeAnchor(width: 150, height: 30)
+    }
+    
+    private func setupDateLabel(){
+        dateLabel.anchor(leading: self.contentView.leadingAnchor, top: nil, trailing: self.contentView.trailingAnchor, bottom: self.contentView.bottomAnchor, padding: .init(top: 0, left: 0, bottom: 20, right: 0))
+    }
+    
+    private func formatDate(date: Date) -> String{
+        let formatter = DateFormatter()
+        let weekDayFormatter = DateFormatter()
+        weekDayFormatter.dateFormat = "EEEE"
+        formatter.dateFormat = "dd MMMM yyyy"
+        return "\(formatter.string(from: date))\n\(weekDayFormatter.string(from: date))"
     }
     
 }
@@ -114,6 +141,12 @@ extension DateViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let width = (weekCollectionView.width - edgeSpace - interItemSpacing) / CGFloat(itemsInOneLine)
         let height:CGFloat = 80
         return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.isSelected = true
+        dateLabel.text = formatDate(date: weekDays.weekDate[indexPath.row])
     }
     
 }
