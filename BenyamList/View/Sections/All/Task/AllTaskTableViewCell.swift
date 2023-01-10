@@ -12,8 +12,9 @@ class AllTaskTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var detail: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var categoryStackView: UIStackView!
     @IBOutlet weak var categoryLabel: UILabelPadding!
+    @IBOutlet weak var statusLabel: UILabelPadding!
+    @IBOutlet weak var priorityLabel: UILabelPadding!
     @IBOutlet weak var mainView: UIView!
     
     static let identifier = "AllTaskTableViewCell"
@@ -55,30 +56,21 @@ class AllTaskTableViewCell: UITableViewCell {
         guard let status = status else {
             return
         }
-        let statusLabel = UILabelPadding()
-        statusLabel.textAlignment = .center
-        statusLabel.font = UIFont.boldSystemFont(ofSize: 10)
         statusLabel.layer.masksToBounds = true
-        statusLabel.textColor = .white
         statusLabel.text = status.rawValue
         statusLabel.backgroundColor = .getStatusColor(from: status)
         statusLabel.layer.cornerRadius = 4
-        categoryStackView.addArrangedSubview(statusLabel)
     }
     
     private func setPriority(priority: Priority?){
         guard let priority = priority, priority != .defualt else {
+            priorityLabel.isHidden = true
             return
         }
-        let priorityLabel = UILabelPadding()
-        priorityLabel.textAlignment = .center
-        priorityLabel.textColor = .white
-        priorityLabel.font = UIFont.boldSystemFont(ofSize: 10)
         priorityLabel.layer.masksToBounds = true
         priorityLabel.text = priority.rawValue
         priorityLabel.backgroundColor = .getPriorityColor(from: priority)
         priorityLabel.layer.cornerRadius = 4
-        categoryStackView.addArrangedSubview(priorityLabel)
     }
     
     private func getTime(from date: Date?) -> String{

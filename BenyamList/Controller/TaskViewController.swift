@@ -65,8 +65,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func doneButtonPressed(){
-        delegate?.addTask(task: task)
-        dismiss(animated: true)
+        print(task.priority)
+//        delegate?.addTask(task: task)
+//        dismiss(animated: true)
     }
     
     @objc func setPriority(_ notification: NSNotification){
@@ -315,7 +316,9 @@ extension TaskViewController: NewTaskPriorityCellDelegate{
     
     func prioritySwitchClicked() {
         isPriorityEnabled.toggle()
-        
+        if !isPriorityEnabled{
+            task.priority = .defualt
+        }
         let indexPath = IndexPath(item: 0, section: 4)
         let cell = tableView.cellForRow(at: indexPath) as! NewTaskPriorityCell
         cell.prioritySwicth.setOn(isPriorityEnabled, animated: true)
