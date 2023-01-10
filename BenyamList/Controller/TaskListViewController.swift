@@ -18,8 +18,8 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         return tableView
     }()
     
-    var tasks: [Task]!
-    var categories: [Category]!
+    var tasks = Database.shared.allTasks
+    var categories = Database.shared.allCategories
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         //addSubviews
         view.addSubview(tableView)
         tableView.anchor(leading: view.leadingAnchor, top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor)
-        categories.insert(Category(name: "All", color: .dodgerBlue), at: 0)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Task",
                                                             style: .done,
                                                             target: self,
@@ -45,6 +44,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         let newTaskVC = TaskViewController()
         let navBar = UINavigationController(rootViewController: newTaskVC)
         newTaskVC.title = "New Task"
+        newTaskVC.task = Task(title: "")
         navBar.modalPresentationStyle = .popover
         present(navBar, animated: true)
     }

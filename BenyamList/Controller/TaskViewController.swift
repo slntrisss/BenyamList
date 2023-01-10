@@ -15,9 +15,12 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         return tableView
     }()
     
-    private var headerViewTitles = ["Detail", "Date", "Time", "Category"]
+    private var headerViewTitles = ["Detail", "Date", "Time", "Category", "Priority"]
     private var dateReminder = false
     private var timeReminder = false
+    private var isPriorityEnabled = false
+    
+    var task: Task!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +28,21 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(dismissViewController))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(doneButtonPressed))
+        
         view.backgroundColor = .systemBackground
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NewTaskDetailCell.self, forCellReuseIdentifier: NewTaskDetailCell.identifier)
         tableView.register(NewTaskDateAndTimeCell.self, forCellReuseIdentifier: NewTaskDateAndTimeCell.identifier)
         tableView.register(NewTaskReminderCell.self, forCellReuseIdentifier: NewTaskReminderCell.identifier)
+        tableView.register(NewTaskCategoryCell.self, forCellReuseIdentifier: NewTaskCategoryCell.identifier)
+        tableView.register(NewTaskPriorityCell.self, forCellReuseIdentifier: NewTaskPriorityCell.identifier)
+        tableView.register(NewTaskPriorityPickerCell.self, forCellReuseIdentifier: NewTaskPriorityPickerCell.identifier)
         view.addSubview(tableView)
     }
     
@@ -42,15 +54,19 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc func dismissViewController(){
         dismiss(animated: true)
     }
+    
+    @objc func doneButtonPressed(){
+        
+    }
 
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 5
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 || section == 1 || section == 2{
+        if section == 0 || section == 1 || section == 2 || section == 4{
             return 2
         }
         return 1
@@ -59,7 +75,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskDetailCell.identifier, for: indexPath) as! NewTaskDetailCell
-            indexPath.row == 0 ? cell.configure(with: "Task Name") : cell.configure(with: "Description")
+            indexPath.row == 0 ? cell.configure(with: DescriptionCell.title, task) : cell.configure(with: DescriptionCell.detail, task)
+            cell.delegate = self
             return cell
         }
         else if indexPath.section == 1{
@@ -67,6 +84,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskDateAndTimeCell.identifier, for: indexPath) as! NewTaskDateAndTimeCell
                 cell.configure(with: "Select a date", datePickerMode: .date)
                 cell.setCenterConstraints(show: dateReminder)
+                cell.delegate = self
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskReminderCell.identifier, for: indexPath) as! NewTaskReminderCell
@@ -79,12 +97,26 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskDateAndTimeCell.identifier, for: indexPath) as! NewTaskDateAndTimeCell
                 cell.configure(with: "Select a time", datePickerMode: .time)
                 cell.setCenterConstraints(show: timeReminder)
+                cell.delegate = self
                 return cell
             }
             else if indexPath.row == 0{
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskReminderCell.identifier, for: indexPath) as! NewTaskReminderCell
                 cell.configure(with: .time)
                 cell.delegate = self
+                return cell
+            }
+        }
+        else if indexPath.section == 3{
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskCategoryCell.identifier, for: indexPath) as! NewTaskCategoryCell
+            return cell
+        }else if indexPath.section == 4{
+            if indexPath.row == 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskPriorityCell.identifier, for: indexPath) as! NewTaskPriorityCell
+                cell.delegate = self
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskPriorityPickerCell.identifier, for: indexPath) as! NewTaskPriorityPickerCell
                 return cell
             }
         }
@@ -104,28 +136,104 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             return dateReminder ? 60 : 0
         case IndexPath(item: 1, section: 2):
             return timeReminder ? 60 : 0
+        case IndexPath(item: 0, section: 3):
+            return 60 * calcNumberOfRowsForCategoryCell()
+        case IndexPath(item: 1, section: 4):
+            return isPriorityEnabled ? 120 : 0
         default:
             return 60
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 3 {
-            return nil
-        }
         return headerViewTitles[section]
+    }
+    
+    private func calcNumberOfRowsForCategoryCell() -> CGFloat{
+        var width = 0
+        let categories = Database.shared.allCategories
+        
+        for category in categories {
+            width += (category.name.count * 15 + 10)
+        }
+        return CGFloat(ceil(Double(Double(width) / tableView.width)))
     }
 }
 
-extension TaskViewController: NewTaskReminderCellDelegate{
+extension TaskViewController: NewTaskReminderCellDelegate, NewTaskDateAndTimeCellDelegate{
+    func dateOrTimeIsPicked(with mode: UIDatePicker.Mode, date: Date) {
+        
+        if mode == .date{
+            task.deadline = date
+        }
+        if mode == .time{
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.hour, .minute], from: date)
+            guard let hour = components.hour,
+                  let minute = components.minute,
+                  let deadline = task.deadline else{
+                return
+            }
+            guard let newDateFromTimeInterval = calendar.date(bySettingHour: hour, minute: minute, second: 0, of: deadline) else{
+                print("Error setting picked time interval")
+                return
+            }
+            
+            task.deadline = newDateFromTimeInterval
+        }
+        
+        if let deadline = task.deadline{
+            print(deadline.formatted(date: .abbreviated, time: .shortened))
+        }
+    }
+    
     func switchIsCliked(in cell: DateOrTimeCell) {
         switch cell {
         case .date:
             dateReminder.toggle()
+            if dateReminder{
+                setDefaultDate()
+            }else{
+                deleteTheDate()
+            }
             handleDateReminder()
         case .time:
             timeReminder.toggle()
+            if timeReminder{
+                setDefaultTime()
+            }else{
+                deleteTheTime()
+            }
             handleTimeRemainder()
+        }
+    }
+    
+    private func setDefaultDate(){
+        task.deadline = Calendar.current.startOfDay(for: Date.now)
+    }
+    
+    private func deleteTheDate(){
+        task.deadline = nil
+    }
+    
+    private func setDefaultTime(){
+        guard var pickedDate = task.deadline else{
+            print("Something went wrong!")
+            return
+        }
+        pickedDate = Calendar.current.startOfDay(for: pickedDate)
+        let components = Calendar.current.dateComponents([.hour, .minute], from: Date.now)
+        guard let hour = components.hour, let minute = components.minute else {
+            return
+        }
+        var pickedDateWithTime = pickedDate
+        pickedDateWithTime = Calendar.current.date(byAdding: .hour, value: hour, to: pickedDate)!
+        pickedDateWithTime = Calendar.current.date(byAdding: .minute, value: minute, to: pickedDateWithTime)!
+    }
+    
+    private func deleteTheTime(){
+        if let deadline = task.deadline{
+            task.deadline = Calendar.current.startOfDay(for: deadline)
         }
     }
     
@@ -181,4 +289,32 @@ extension TaskViewController: NewTaskReminderCellDelegate{
         
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
+    
+}
+
+extension TaskViewController: NewTaskPriorityCellDelegate{
+    
+    func prioritySwitchClicked() {
+        isPriorityEnabled.toggle()
+        
+        let indexPath = IndexPath(item: 0, section: 4)
+        let cell = tableView.cellForRow(at: indexPath) as! NewTaskPriorityCell
+        cell.prioritySwicth.setOn(isPriorityEnabled, animated: true)
+        
+        tableView.reloadRows(at: [IndexPath(item: 1, section: 4)], with: .fade)
+    }
+    
+}
+
+extension TaskViewController: NewTaskDetailCellDelegate{
+    
+    func textFieldDidEndEditing(with text: String, and cell: DescriptionCell) {
+        switch cell {
+        case .title:
+            task.title = text
+        case .detail:
+            task.details = text
+        }
+    }
+    
 }

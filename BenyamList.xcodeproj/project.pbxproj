@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4E7A8EC0E829C241A61EEFA9 /* Pods_BenyamList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9506EE7BD2F5D84FFCCD2991 /* Pods_BenyamList.framework */; };
+		FF29C9672965F82A005C0EA3 /* NewTaskPriorityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF29C9662965F82A005C0EA3 /* NewTaskPriorityCell.swift */; };
+		FF29C9692965FE29005C0EA3 /* NewTaskPriorityPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF29C9682965FE29005C0EA3 /* NewTaskPriorityPickerCell.swift */; };
 		FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E22B293715C90098EAFC /* NewListViewController.swift */; };
 		FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E22D293724230098EAFC /* Extension+UIView.swift */; };
 		FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */; };
+		FF4251AA29658B9200DCA9D7 /* NewTaskCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4251A929658B9200DCA9D7 /* NewTaskCategoryCell.swift */; };
+		FF4251AD29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4251AC29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift */; };
 		FF5B45C529408A9900F7CAB8 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */; };
 		FF5B45CE2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */; };
 		FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */; };
@@ -41,7 +45,6 @@
 		FFA64BBA293637540037091D /* StatisticsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BB8293637540037091D /* StatisticsCollectionViewCell.swift */; };
 		FFA64BBB293637540037091D /* StatisticsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BB9293637540037091D /* StatisticsCollectionViewCell.xib */; };
 		FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BBD29363BA80037091D /* Extension+UIColor.swift */; };
-		FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BBF29363D1A0037091D /* Extension+Data.swift */; };
 		FFA64BC6293649C90037091D /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BC4293649C90037091D /* CardTableViewCell.swift */; };
 		FFA64BC7293649C90037091D /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BC5293649C90037091D /* CardTableViewCell.xib */; };
 		FFA64BCB29364B540037091D /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA64BC929364B540037091D /* CardCollectionViewCell.swift */; };
@@ -50,6 +53,7 @@
 		FFA64BD42936725E0037091D /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA64BD22936725E0037091D /* TaskTableViewCell.xib */; };
 		FFD389BC293F76D1005F4CFA /* DateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD389BB293F76D1005F4CFA /* DateViewCell.swift */; };
 		FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6B5192938C3440062D15B /* TaskListViewController.swift */; };
+		FFF04DBB295DAEC30050210E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF04DBA295DAEC30050210E /* Database.swift */; };
 		FFFC52F329391D93004CA5D6 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC52F229391D93004CA5D6 /* WeekCell.swift */; };
 		FFFC52F5293920CB004CA5D6 /* WeekDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC52F4293920CB004CA5D6 /* WeekDays.swift */; };
 		FFFC52F7293923D4004CA5D6 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC52F6293923D4004CA5D6 /* Extension+Date.swift */; };
@@ -59,9 +63,13 @@
 		6801B73432991F0003F58B98 /* Pods-BenyamList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BenyamList.debug.xcconfig"; path = "Target Support Files/Pods-BenyamList/Pods-BenyamList.debug.xcconfig"; sourceTree = "<group>"; };
 		9506EE7BD2F5D84FFCCD2991 /* Pods_BenyamList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BenyamList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F409F9BC74D9827AEBE5FAFF /* Pods-BenyamList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BenyamList.release.xcconfig"; path = "Target Support Files/Pods-BenyamList/Pods-BenyamList.release.xcconfig"; sourceTree = "<group>"; };
+		FF29C9662965F82A005C0EA3 /* NewTaskPriorityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskPriorityCell.swift; sourceTree = "<group>"; };
+		FF29C9682965FE29005C0EA3 /* NewTaskPriorityPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskPriorityPickerCell.swift; sourceTree = "<group>"; };
 		FF37E22B293715C90098EAFC /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
 		FF37E22D293724230098EAFC /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskListCollectionViewCell.swift; sourceTree = "<group>"; };
+		FF4251A929658B9200DCA9D7 /* NewTaskCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskCategoryCell.swift; sourceTree = "<group>"; };
+		FF4251AC29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTaskTableViewCell.swift; sourceTree = "<group>"; };
@@ -94,7 +102,6 @@
 		FFA64BB8293637540037091D /* StatisticsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsCollectionViewCell.swift; sourceTree = "<group>"; };
 		FFA64BB9293637540037091D /* StatisticsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsCollectionViewCell.xib; sourceTree = "<group>"; };
 		FFA64BBD29363BA80037091D /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
-		FFA64BBF29363D1A0037091D /* Extension+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Data.swift"; sourceTree = "<group>"; };
 		FFA64BC4293649C90037091D /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		FFA64BC5293649C90037091D /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
 		FFA64BC929364B540037091D /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -103,6 +110,7 @@
 		FFA64BD22936725E0037091D /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		FFD389BB293F76D1005F4CFA /* DateViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewCell.swift; sourceTree = "<group>"; };
 		FFE6B5192938C3440062D15B /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
+		FFF04DBA295DAEC30050210E /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		FFFC52F229391D93004CA5D6 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
 		FFFC52F4293920CB004CA5D6 /* WeekDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDays.swift; sourceTree = "<group>"; };
 		FFFC52F6293923D4004CA5D6 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
@@ -137,12 +145,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FF29C96A29660273005C0EA3 /* PriorityCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF29C9662965F82A005C0EA3 /* NewTaskPriorityCell.swift */,
+				FF29C9682965FE29005C0EA3 /* NewTaskPriorityPickerCell.swift */,
+			);
+			path = PriorityCell;
+			sourceTree = "<group>";
+		};
 		FF37E22F2937438F0098EAFC /* NewTaskList */ = {
 			isa = PBXGroup;
 			children = (
 				FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */,
 			);
 			path = NewTaskList;
+			sourceTree = "<group>";
+		};
+		FF4251AB29658D0900DCA9D7 /* NewTaskCategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF4251A929658B9200DCA9D7 /* NewTaskCategoryCell.swift */,
+				FF4251AC29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift */,
+			);
+			path = NewTaskCategoryCell;
 			sourceTree = "<group>";
 		};
 		FF5B45C329408A1E00F7CAB8 /* Category */ = {
@@ -185,6 +211,8 @@
 				FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */,
 				FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */,
 				FF802021295A344C00F94AE9 /* NewTaskReminderCell.swift */,
+				FF29C96A29660273005C0EA3 /* PriorityCell */,
+				FF4251AB29658D0900DCA9D7 /* NewTaskCategoryCell */,
 			);
 			path = "New Task";
 			sourceTree = "<group>";
@@ -253,6 +281,7 @@
 				FFA64BA2293633B90037091D /* Category.swift */,
 				FFA64BA72936341B0037091D /* Task.swift */,
 				FFFC52F4293920CB004CA5D6 /* WeekDays.swift */,
+				FFF04DBA295DAEC30050210E /* Database.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -320,7 +349,6 @@
 			isa = PBXGroup;
 			children = (
 				FFA64BBD29363BA80037091D /* Extension+UIColor.swift */,
-				FFA64BBF29363D1A0037091D /* Extension+Data.swift */,
 				FF37E22D293724230098EAFC /* Extension+UIView.swift */,
 				FFFC52F6293923D4004CA5D6 /* Extension+Date.swift */,
 			);
@@ -544,6 +572,7 @@
 				FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */,
 				FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */,
 				FF5B45CE2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift in Sources */,
+				FFF04DBB295DAEC30050210E /* Database.swift in Sources */,
 				FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */,
 				FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */,
 				FF5B45C529408A9900F7CAB8 /* CategoryViewCell.swift in Sources */,
@@ -565,14 +594,17 @@
 				FFA64BBE29363BA80037091D /* Extension+UIColor.swift in Sources */,
 				FF80201C295A0DDF00F94AE9 /* NewTaskDetailCell.swift in Sources */,
 				FF37E22E293724230098EAFC /* Extension+UIView.swift in Sources */,
-				FFA64BC029363D1A0037091D /* Extension+Data.swift in Sources */,
 				FFA64B9F293632BC0037091D /* Statistics.swift in Sources */,
+				FF29C9692965FE29005C0EA3 /* NewTaskPriorityPickerCell.swift in Sources */,
 				FFA64B87293630D40037091D /* SceneDelegate.swift in Sources */,
+				FF4251AD29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift in Sources */,
 				FFA64BAC293634430037091D /* Status.swift in Sources */,
 				FFA64BA3293633B90037091D /* Category.swift in Sources */,
 				FF80201E295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift in Sources */,
 				FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */,
+				FF29C9672965F82A005C0EA3 /* NewTaskPriorityCell.swift in Sources */,
 				FFA64BC6293649C90037091D /* CardTableViewCell.swift in Sources */,
+				FF4251AA29658B9200DCA9D7 /* NewTaskCategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

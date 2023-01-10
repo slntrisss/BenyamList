@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol NewTaskDateAndTimeCellDelegate: AnyObject{
+    func dateOrTimeIsPicked(with mode: UIDatePicker.Mode, date: Date)
+}
+
 class NewTaskDateAndTimeCell: UITableViewCell {
 
     static let identifier = "NewTaskDateCell"
+    
+    private var datePickerMode: UIDatePicker.Mode!
+    
+    weak var delegate: NewTaskDateAndTimeCellDelegate!
     
     lazy private var datePicker: UIDatePicker = {
         let width = 60
@@ -17,6 +25,7 @@ class NewTaskDateAndTimeCell: UITableViewCell {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .compact
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.addTarget(self, action: #selector(dateOrTimePicked), for: .valueChanged)
         return datePicker
     }()
     
@@ -55,8 +64,20 @@ class NewTaskDateAndTimeCell: UITableViewCell {
     }
     
     func configure(with labelString: String, datePickerMode: UIDatePicker.Mode){
+        self.datePickerMode = datePickerMode
         dateLabel.text = labelString
         datePicker.datePickerMode = datePickerMode
+    }
+    
+    @objc func dateOrTimePicked(){
+        if datePickerMode == .date{
+            let pickedDate = Calendar.current.startOfDay(for: datePicker.date)
+            delegate.dateOrTimeIsPicked(with: .date, date: pickedDate)
+        }
+        else if datePickerMode == .time{
+            let pickedDate = datePicker.date
+            delegate.dateOrTimeIsPicked(with: .time, date: pickedDate)
+        }
     }
     
 }

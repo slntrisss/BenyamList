@@ -8,10 +8,15 @@
 import UIKit
 
 class MainViewController: UITableViewController {
+    
+    var statistics = Database.shared.statistics
+    var cards = Database.shared.cards
+    var taskLists = Database.shared.taskLists
+    var allTasks = Database.shared.allTasks
+    var allCategories = Database.shared.allCategories
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initData()
         tableView.register(StatisticsCell.nib(), forCellReuseIdentifier: StatisticsCell.identifier)
         tableView.register(CardTableViewCell.nib(), forCellReuseIdentifier: CardTableViewCell.identifier)
         tableView.register(TaskTableViewCell.nib(), forCellReuseIdentifier: TaskTableViewCell.identifier)
@@ -19,12 +24,6 @@ class MainViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add List", style: .done, target: self, action: #selector(didTapAddListButton))
     }
-    
-    var statistics = [Statistics]()
-    var cards = [Card]()
-    var taskLists = [TaskList]()
-    var allTasks = [Task]()
-    var allCategories = [Category]()
     
     
     
@@ -98,25 +97,13 @@ class MainViewController: UITableViewController {
         return nil
         
     }
-    
-    //MARK: - Helper funcs
-    
-    private func setAdditinalData(){
-        for taskList in taskLists {
-            allTasks += taskList.tasks
-            allCategories.append(taskList.category)
-        }
-    }
 
 }
 
 extension MainViewController: NewTaskList, CardCellProtocol{
     func cardCellPressed(_ row: Int) {
         if row == 2{
-            setAdditinalData()
             let taskListVC = TaskListViewController()
-            taskListVC.tasks = allTasks
-            taskListVC.categories = allCategories
             taskListVC.title = "All"
             self.navigationController?.pushViewController(taskListVC, animated: true)
         }
@@ -124,6 +111,7 @@ extension MainViewController: NewTaskList, CardCellProtocol{
     
     func saveTaskList(_ taskList: TaskList) {
         taskLists.append(taskList)
+        Database.shared.taskLists.append(taskList)
         let index = taskLists.count - 1
         let indexPath = IndexPath(item: index, section: 2)
         tableView.insertRows(at: [indexPath], with: .fade)

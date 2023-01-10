@@ -11,8 +11,8 @@ struct Task {
     var title: String
     var details: String?
     var deadline: Date?
-    var creatationDate: Date
-    var status:Status?
-    var category: Category
+    var creatationDate = Date.now
+    var status:Status = .overdue
+    var category = Category(name: "All", color: .dodgerBlue)
     var priority: Priority?
 }

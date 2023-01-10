@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Priority:String {
-    case urgent, medium, low
+enum Priority:String, CaseIterable {
+    case defualt, urgent, medium, low
 }
