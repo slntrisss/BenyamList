@@ -10,7 +10,7 @@ import UIKit
 class NewTaskPriorityPickerCell: UITableViewCell {
 
     static let identifier = "NewTaskPriorityPickerCell"
-    
+    var selectedPriority = Priority.defualt
     private let priorities: [String] = {
         var priorities = [String]()
         for priority in Priority.allCases{
@@ -40,6 +40,23 @@ class NewTaskPriorityPickerCell: UITableViewCell {
         super.layoutSubviews()
         pickerView.anchor(leading: contentView.leadingAnchor, top: contentView.topAnchor,
                           trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor)
+    }
+    
+    func configure(with priority: Priority){
+        self.selectedPriority = priority
+        let row: Int
+        switch priority {
+        case .defualt:
+            row = 0
+        case .urgent:
+            row = 1
+        case .medium:
+            row = 2
+        case .low:
+            row = 3
+        }
+        
+        pickerView.selectRow(row, inComponent: 0, animated: false)
     }
     
 }

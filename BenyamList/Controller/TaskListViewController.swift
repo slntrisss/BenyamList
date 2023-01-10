@@ -44,8 +44,9 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         let newTaskVC = TaskViewController()
         let navBar = UINavigationController(rootViewController: newTaskVC)
         newTaskVC.title = "New Task"
+        newTaskVC.taskType = .new
         newTaskVC.delegate = self
-        newTaskVC.task = Task(title: "")
+        newTaskVC.task = Task(title: "", deadline: nil)
         navBar.modalPresentationStyle = .popover
         present(navBar, animated: true)
     }
@@ -97,11 +98,32 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2{
+            let taskDetailVC = TaskViewController()
+            taskDetailVC.title = "Details"
+            taskDetailVC.task = tasks[indexPath.row]
+            let navBar = UINavigationController(rootViewController: taskDetailVC)
+            navBar.modalPresentationStyle = .popover
+            taskDetailVC.delegate = self
+            taskDetailVC.taskType = .old
+            present(navBar, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension TaskListViewController: TaskViewControllerDelegate{
+    
+    func updateTask(updatedTask: Task) {
+        if let index = tasks.firstIndex(where: { task in
+            task.id == updatedTask.id
+        }){
+            tasks[index] = updatedTask
+            Database.shared.allTasks[index] = updatedTask
+            tableView.reloadRows(at: [IndexPath(item: index, section: 2)], with: .fade)
+        }
+    }
+    
     func addTask(task: Task) {
         tasks.append(task)
         Database.shared.allTasks.append(task)

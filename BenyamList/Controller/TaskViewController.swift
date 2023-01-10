@@ -9,6 +9,7 @@ import UIKit
 
 protocol TaskViewControllerDelegate: AnyObject{
     func addTask(task: Task)
+    func updateTask(updatedTask: Task)
 }
 
 class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -25,6 +26,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var isPriorityEnabled = false
     
     var task: Task!
+    var taskType = TaskType.new
     
     weak var delegate: TaskViewControllerDelegate?
 
@@ -35,7 +37,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                                                            target: self,
                                                            action: #selector(dismissViewController))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: taskType == .old ? "Save" : "Done",
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(doneButtonPressed))
@@ -53,6 +55,13 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         view.addSubview(tableView)
         
         NotificationCenter.default.addObserver(self, selector: #selector(setPriority(_:)), name: NSNotification.Name("NewTaskPriorityPickerCell.priority"), object: nil)
+        
+        if taskType == .old{
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            timeReminder = true
+            dateReminder = true
+            isPriorityEnabled = true
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,9 +74,12 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func doneButtonPressed(){
-        print(task.priority)
-//        delegate?.addTask(task: task)
-//        dismiss(animated: true)
+        if taskType == .old{
+            delegate?.updateTask(updatedTask: task)
+        }else{
+            delegate?.addTask(task: task)
+        }
+        dismiss(animated: true)
     }
     
     @objc func setPriority(_ notification: NSNotification){
@@ -99,42 +111,45 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         else if indexPath.section == 1{
             if indexPath.row == 1{
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskDateAndTimeCell.identifier, for: indexPath) as! NewTaskDateAndTimeCell
-                cell.configure(with: "Select a date", datePickerMode: .date)
+                cell.configure(with: "Select a date", datePickerMode: .date, task)
                 cell.setCenterConstraints(show: dateReminder)
                 cell.delegate = self
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskReminderCell.identifier, for: indexPath) as! NewTaskReminderCell
-            cell.configure(with: .date)
+            cell.configure(with: .date, taskType)
             cell.delegate = self
             return cell
         }
         else if indexPath.section == 2{
             if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskDateAndTimeCell.identifier, for: indexPath) as! NewTaskDateAndTimeCell
-                cell.configure(with: "Select a time", datePickerMode: .time)
+                cell.configure(with: "Select a time", datePickerMode: .time, task)
                 cell.setCenterConstraints(show: timeReminder)
                 cell.delegate = self
                 return cell
             }
             else if indexPath.row == 0{
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskReminderCell.identifier, for: indexPath) as! NewTaskReminderCell
-                cell.configure(with: .time)
+                cell.configure(with: .time, taskType)
                 cell.delegate = self
                 return cell
             }
         }
         else if indexPath.section == 3{
             let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskCategoryCell.identifier, for: indexPath) as! NewTaskCategoryCell
+            cell.configure(with: task)
             cell.delegate = self
             return cell
         }else if indexPath.section == 4{
             if indexPath.row == 0{
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskPriorityCell.identifier, for: indexPath) as! NewTaskPriorityCell
                 cell.delegate = self
+                cell.configure(isShowing: isPriorityEnabled)
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskPriorityPickerCell.identifier, for: indexPath) as! NewTaskPriorityPickerCell
+                cell.configure(with: task.priority)
                 return cell
             }
         }
@@ -205,7 +220,7 @@ extension TaskViewController: NewTaskReminderCellDelegate, NewTaskDateAndTimeCel
         switch cell {
         case .date:
             dateReminder.toggle()
-            if dateReminder{
+            if dateReminder && taskType == .new{
                 setDefaultDate()
             }else{
                 deleteTheDate()
@@ -213,7 +228,7 @@ extension TaskViewController: NewTaskReminderCellDelegate, NewTaskDateAndTimeCel
             handleDateReminder()
         case .time:
             timeReminder.toggle()
-            if timeReminder{
+            if timeReminder && taskType == .new{
                 setDefaultTime()
             }else{
                 deleteTheTime()
@@ -338,7 +353,7 @@ extension TaskViewController: NewTaskDetailCellDelegate{
             task.details = text
         }
         
-        if task.title.isEmpty{
+        if task.title.isEmpty && taskType == .new {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
         else{
@@ -354,4 +369,8 @@ extension TaskViewController: NewTaskCategoryCellDelegate{
         task.category = category
     }
     
+}
+
+enum TaskType{
+    case new, old
 }

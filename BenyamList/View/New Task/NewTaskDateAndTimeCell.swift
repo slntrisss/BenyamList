@@ -63,10 +63,17 @@ class NewTaskDateAndTimeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with labelString: String, datePickerMode: UIDatePicker.Mode){
+    func configure(with labelString: String, datePickerMode: UIDatePicker.Mode, _ task: Task){
         self.datePickerMode = datePickerMode
         dateLabel.text = labelString
         datePicker.datePickerMode = datePickerMode
+        if let deadline = task.deadline{
+            datePicker.date = deadline
+        }
+    }
+    
+    private func setDate(date: Date, mode: UIDatePicker.Mode){
+        delegate.dateOrTimeIsPicked(with: mode, date: date)
     }
     
     @objc func dateOrTimePicked(){

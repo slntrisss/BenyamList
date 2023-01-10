@@ -61,4 +61,8 @@ class NewTaskPriorityCell: UITableViewCell {
         prioritySwicth.centerAnchor(centerX: nil, centerY: centerYAnchor, xPadding: .zero, yPadding: .zero)
     }
     
+    func configure(isShowing: Bool){
+        prioritySwicth.setOn(isShowing, animated: false)
+    }
+    
 }

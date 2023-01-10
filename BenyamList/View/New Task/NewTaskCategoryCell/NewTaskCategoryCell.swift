@@ -16,6 +16,7 @@ class NewTaskCategoryCell: UITableViewCell {
     static let identifier = "NewTaskCategoryCell"
     
     var allCategories = Database.shared.allCategories
+    var selectedCategory: Int?
     
     private let spacing: CGFloat = 5
     
@@ -52,6 +53,14 @@ class NewTaskCategoryCell: UITableViewCell {
         categoryCollectionView.frame = contentView.bounds
     }
     
+    func configure(with task: Task){
+        for i in allCategories.indices{
+            if task.category.name == allCategories[i].name{
+                selectedCategory = i
+            }
+        }
+    }
+    
 }
 
 extension NewTaskCategoryCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -63,6 +72,10 @@ extension NewTaskCategoryCell: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewTaskCategoryCollectionViewCell.identifier, for: indexPath) as!
         NewTaskCategoryCollectionViewCell
+        if let index = selectedCategory, index == indexPath.row{
+            let indexPath = IndexPath(item: index, section: 0)
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+        }
         cell.configure(with: allCategories[indexPath.row])
         return cell
     }
