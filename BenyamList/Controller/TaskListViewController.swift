@@ -44,6 +44,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         let newTaskVC = TaskViewController()
         let navBar = UINavigationController(rootViewController: newTaskVC)
         newTaskVC.title = "New Task"
+        newTaskVC.delegate = self
         newTaskVC.task = Task(title: "")
         navBar.modalPresentationStyle = .popover
         present(navBar, animated: true)
@@ -97,5 +98,16 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension TaskListViewController: TaskViewControllerDelegate{
+    func addTask(task: Task) {
+        tasks.append(task)
+        Database.shared.allTasks.append(task)
+        
+        let lastIndex = tasks.endIndex - 1
+        let indexPath = IndexPath(item: lastIndex, section: 2)
+        tableView.insertRows(at: [indexPath], with: .fade)
     }
 }

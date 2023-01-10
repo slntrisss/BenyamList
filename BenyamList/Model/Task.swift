@@ -14,5 +14,5 @@ struct Task {
     var creatationDate = Date.now
     var status:Status = .overdue
     var category = Category(name: "All", color: .dodgerBlue)
-    var priority: Priority?
+    var priority: Priority = .defualt
 }

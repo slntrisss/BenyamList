@@ -9,6 +9,8 @@ import UIKit
 
 protocol NewTaskDetailCellDelegate: AnyObject{
     func textFieldDidEndEditing(with text: String, and cell: DescriptionCell)
+    
+//    func textFieldDidEdit(with text: String)
 }
 
 class NewTaskDetailCell: UITableViewCell {

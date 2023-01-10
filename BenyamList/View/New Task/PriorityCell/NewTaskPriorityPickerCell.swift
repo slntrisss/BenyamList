@@ -59,7 +59,15 @@ extension NewTaskPriorityPickerCell: UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(priorities[row])
+        let selectedPriority: Priority
+        switch row{
+        case 1: selectedPriority = .urgent
+        case 2: selectedPriority = .medium
+        case 3: selectedPriority = .low
+        default: selectedPriority = .defualt
+        }
+        let userInfo: [String: Priority] = ["priority" : selectedPriority]
+        NotificationCenter.default.post(name: NSNotification.Name("NewTaskPriorityPickerCell.priority"), object: nil, userInfo: userInfo)
     }
     
 }

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol NewTaskCategoryCellDelegate: AnyObject{
+    func didSelectCategory(with category: Category)
+}
+
 class NewTaskCategoryCell: UITableViewCell {
 
     static let identifier = "NewTaskCategoryCell"
@@ -14,6 +18,8 @@ class NewTaskCategoryCell: UITableViewCell {
     var allCategories = Database.shared.allCategories
     
     private let spacing: CGFloat = 5
+    
+    weak var delegate: NewTaskCategoryCellDelegate?
     
     //Views
     lazy private var categoryCollectionView: UICollectionView = {
@@ -64,5 +70,11 @@ extension NewTaskCategoryCell: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let len = allCategories[indexPath.row].name.count
         return CGSize(width: CGFloat(len * 15), height: 60)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! NewTaskCategoryCollectionViewCell
+        let category = cell.category ?? Category(name: "All", color: .magenta)
+        delegate?.didSelectCategory(with: category)
     }
 }

@@ -34,6 +34,8 @@ class AllTaskTableViewCell: UITableViewCell {
         title.text = task.title
         if let taskDescription = task.details{
             detail.text = taskDescription
+        }else{
+            detail.text = ""
         }
         timeLabel.text = getTime(from: task.deadline)
         
@@ -65,7 +67,7 @@ class AllTaskTableViewCell: UITableViewCell {
     }
     
     private func setPriority(priority: Priority?){
-        guard let priority = priority else {
+        guard let priority = priority, priority != .defualt else {
             return
         }
         let priorityLabel = UILabelPadding()

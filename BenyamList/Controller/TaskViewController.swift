@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TaskViewControllerDelegate: AnyObject{
+    func addTask(task: Task)
+}
+
 class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var tableView: UITableView = {
@@ -21,6 +25,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var isPriorityEnabled = false
     
     var task: Task!
+    
+    weak var delegate: TaskViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +39,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(doneButtonPressed))
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         view.backgroundColor = .systemBackground
         tableView.dataSource = self
@@ -44,6 +51,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(NewTaskPriorityCell.self, forCellReuseIdentifier: NewTaskPriorityCell.identifier)
         tableView.register(NewTaskPriorityPickerCell.self, forCellReuseIdentifier: NewTaskPriorityPickerCell.identifier)
         view.addSubview(tableView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setPriority(_:)), name: NSNotification.Name("NewTaskPriorityPickerCell.priority"), object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -56,7 +65,14 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func doneButtonPressed(){
-        
+        delegate?.addTask(task: task)
+        dismiss(animated: true)
+    }
+    
+    @objc func setPriority(_ notification: NSNotification){
+        if let selectedPriority = notification.userInfo?["priority"] as? Priority{
+            task.priority = selectedPriority
+        }
     }
 
     // MARK: - Table view data source
@@ -109,6 +125,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         else if indexPath.section == 3{
             let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskCategoryCell.identifier, for: indexPath) as! NewTaskCategoryCell
+            cell.delegate = self
             return cell
         }else if indexPath.section == 4{
             if indexPath.row == 0{
@@ -181,10 +198,6 @@ extension TaskViewController: NewTaskReminderCellDelegate, NewTaskDateAndTimeCel
             
             task.deadline = newDateFromTimeInterval
         }
-        
-        if let deadline = task.deadline{
-            print(deadline.formatted(date: .abbreviated, time: .shortened))
-        }
     }
     
     func switchIsCliked(in cell: DateOrTimeCell) {
@@ -217,18 +230,24 @@ extension TaskViewController: NewTaskReminderCellDelegate, NewTaskDateAndTimeCel
     }
     
     private func setDefaultTime(){
-        guard var pickedDate = task.deadline else{
+        guard let pickedDate = task.deadline else{
             print("Something went wrong!")
             return
         }
-        pickedDate = Calendar.current.startOfDay(for: pickedDate)
-        let components = Calendar.current.dateComponents([.hour, .minute], from: Date.now)
-        guard let hour = components.hour, let minute = components.minute else {
+        
+        let currentTimeInterval = Date()
+        
+        let components = Calendar.current.dateComponents([.hour, .minute], from: currentTimeInterval)
+        guard let hour = components.hour,
+              let minute = components.minute else{
             return
         }
-        var pickedDateWithTime = pickedDate
-        pickedDateWithTime = Calendar.current.date(byAdding: .hour, value: hour, to: pickedDate)!
-        pickedDateWithTime = Calendar.current.date(byAdding: .minute, value: minute, to: pickedDateWithTime)!
+        guard let newDateFromTimeInterval = Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: pickedDate) else{
+            print("Error setting picked time interval")
+            return
+        }
+        
+        task.deadline = newDateFromTimeInterval
     }
     
     private func deleteTheTime(){
@@ -315,6 +334,21 @@ extension TaskViewController: NewTaskDetailCellDelegate{
         case .detail:
             task.details = text
         }
+        
+        if task.title.isEmpty{
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        else{
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
+    
+}
+
+extension TaskViewController: NewTaskCategoryCellDelegate{
+    
+    func didSelectCategory(with category: Category) {
+        task.category = category
     }
     
 }

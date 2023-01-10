@@ -11,6 +11,8 @@ class NewTaskCategoryCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "NewTaskCategoryCollectionViewCell"
     
+    var category: Category!
+    
     override var isSelected: Bool{
         didSet{
             if isSelected{
@@ -59,6 +61,7 @@ class NewTaskCategoryCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with category: Category){
+        self.category = category
         categoryLabel.text = category.name
         self.categoryView.backgroundColor = UIColor.getColor(from: category.color)
     }
