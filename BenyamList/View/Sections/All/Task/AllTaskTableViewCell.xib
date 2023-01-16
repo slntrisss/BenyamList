@@ -86,10 +86,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="categoryLabel" destination="nKx-me-2n3" id="iXA-YM-Uba"/>
+                <outlet property="categoryLabel" destination="Mjw-zp-z8n" id="Xmp-4X-Id0"/>
                 <outlet property="detail" destination="PF6-GK-zfS" id="S5j-n8-e7S"/>
                 <outlet property="priorityLabel" destination="aQF-Hc-Atl" id="9Tz-qI-Mtc"/>
-                <outlet property="statusLabel" destination="Mjw-zp-z8n" id="ZCE-xO-Gu6"/>
+                <outlet property="statusLabel" destination="nKx-me-2n3" id="Hvg-Ie-Cfw"/>
                 <outlet property="timeLabel" destination="1R1-aA-OKP" id="WkS-dd-NSk"/>
                 <outlet property="title" destination="NQM-o7-HK8" id="ihM-xZ-RyH"/>
             </connections>

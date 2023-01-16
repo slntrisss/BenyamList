@@ -12,6 +12,12 @@ protocol TaskViewControllerDelegate: AnyObject{
     func updateTask(updatedTask: Task)
 }
 
+extension TaskViewControllerDelegate{
+    func addTask(task: Task){
+        // do nothing
+    }
+}
+
 class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var tableView: UITableView = {
@@ -56,7 +62,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         NotificationCenter.default.addObserver(self, selector: #selector(setPriority(_:)), name: NSNotification.Name("NewTaskPriorityPickerCell.priority"), object: nil)
         
-        if taskType == .old{
+        if taskType == .old && task.deadline != nil{
             navigationItem.rightBarButtonItem?.isEnabled = true
             timeReminder = true
             dateReminder = true
@@ -78,6 +84,12 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             delegate?.updateTask(updatedTask: task)
         }else{
             delegate?.addTask(task: task)
+        }
+        
+        if let deadline = task.deadline{
+            print(deadline.formatted(date: .abbreviated, time: .shortened))
+        }else{
+            print("Date is not provided")
         }
         dismiss(animated: true)
     }
@@ -117,7 +129,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskReminderCell.identifier, for: indexPath) as! NewTaskReminderCell
-            cell.configure(with: .date, taskType)
+            cell.configure(with: .date)
+            cell.isEnabled.setOn((taskType == .old && task.deadline != nil), animated: false)
             cell.delegate = self
             return cell
         }
@@ -131,7 +144,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else if indexPath.row == 0{
                 let cell = tableView.dequeueReusableCell(withIdentifier: NewTaskReminderCell.identifier, for: indexPath) as! NewTaskReminderCell
-                cell.configure(with: .time, taskType)
+                cell.configure(with: .time)
+                cell.isEnabled.setOn((taskType == .old && task.deadline != nil), animated: false)
                 cell.delegate = self
                 return cell
             }
@@ -220,7 +234,7 @@ extension TaskViewController: NewTaskReminderCellDelegate, NewTaskDateAndTimeCel
         switch cell {
         case .date:
             dateReminder.toggle()
-            if dateReminder && taskType == .new{
+            if dateReminder && (taskType == .new || (taskType == .old && task.deadline == nil)){
                 setDefaultDate()
             }else{
                 deleteTheDate()
@@ -228,7 +242,7 @@ extension TaskViewController: NewTaskReminderCellDelegate, NewTaskDateAndTimeCel
             handleDateReminder()
         case .time:
             timeReminder.toggle()
-            if timeReminder && taskType == .new{
+            if timeReminder && (taskType == .new || (taskType == .old && task.deadline == nil)){
                 setDefaultTime()
             }else{
                 deleteTheTime()
@@ -366,7 +380,30 @@ extension TaskViewController: NewTaskDetailCellDelegate{
 extension TaskViewController: NewTaskCategoryCellDelegate{
     
     func didSelectCategory(with category: Category) {
-        task.category = category
+        
+        if taskType == .old {
+            let database = Database.shared
+            print("About to update")
+            for i in database.taskLists.indices{
+                if let index = database.taskLists[i].tasks.firstIndex(where: {
+                    $0.category.name == task.category.name
+                }){
+                    database.taskLists[i].tasks.remove(at: index)
+                    task.category = category
+                    print("About to replace")
+                    if let newIndex = database.taskLists.firstIndex(where: {
+                        $0.category.name == category.name
+                    }){
+                        database.taskLists[newIndex].tasks.append(task)
+                        print("replaced")
+                    }
+                    break
+                }
+                
+            }
+        }else{
+            task.category = category
+        }
     }
     
 }

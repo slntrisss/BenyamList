@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct TaskList {
+struct TaskList: Identifiable {
+    let id = UUID()
     var category: Category
     var tasks: [Task]
     

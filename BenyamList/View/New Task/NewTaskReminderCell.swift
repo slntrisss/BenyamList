@@ -70,7 +70,7 @@ class NewTaskReminderCell: UITableViewCell {
         isEnabled.centerAnchor(centerX: nil, centerY: centerYAnchor, xPadding: 0, yPadding: 0)
     }
     
-    func configure(with dateAndTimeType: DateOrTimeCell, _ taskType: TaskType){
+    func configure(with dateAndTimeType: DateOrTimeCell){
         self.cellType = dateAndTimeType
         switch dateAndTimeType {
         case .date:
@@ -80,8 +80,7 @@ class NewTaskReminderCell: UITableViewCell {
             icon.image = UIImage(systemName: "clock")
             reminderLabel.text = "Time"
         }
-        
-        isEnabled.setOn(taskType == .new ? false : true, animated: false)
+    
     }
     
     @objc func didTapSwitch(){

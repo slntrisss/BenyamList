@@ -18,8 +18,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         return tableView
     }()
     
-    var tasks = Database.shared.allTasks
-    var categories = Database.shared.allCategories
+    let database = Database.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +68,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         if section == 0 || section == 1 {
             return 1;
         }
-        return tasks.count
+        return database.allTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,10 +78,12 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryViewCell.identifier, for: indexPath) as! CategoryViewCell
+            let categories = database.allCategories
             cell.categories = categories
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: AllTaskTableViewCell.identifier, for: indexPath) as! AllTaskTableViewCell
+        let tasks = database.allTasks
         cell.configure(with: tasks[indexPath.row])
         return cell
     }
@@ -99,6 +100,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2{
+            let tasks = database.allTasks
             let taskDetailVC = TaskViewController()
             taskDetailVC.title = "Details"
             taskDetailVC.task = tasks[indexPath.row]
@@ -115,20 +117,45 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
 extension TaskListViewController: TaskViewControllerDelegate{
     
     func updateTask(updatedTask: Task) {
-        if let index = tasks.firstIndex(where: { task in
-            task.id == updatedTask.id
-        }){
-            tasks[index] = updatedTask
-            Database.shared.allTasks[index] = updatedTask
-            tableView.reloadRows(at: [IndexPath(item: index, section: 2)], with: .fade)
+        //All tasks
+        if let index = database.allTasks.firstIndex(where: {$0.id == updatedTask.id}){
+            database.allTasks[index] = updatedTask
         }
+        
+        //TaskList
+        let taskLists = database.taskLists
+        for i in taskLists.indices {
+            let taskCategoryName = updatedTask.category.name.lowercased().trimmingCharacters(in: .whitespaces)
+            let taskListCategoryName = taskLists[i].category.name.lowercased().trimmingCharacters(in: .whitespaces)
+            
+            if taskCategoryName == taskListCategoryName{
+                if let index = taskLists[i].tasks.firstIndex(where: {updatedTask.id == $0.id}){
+                    database.taskLists[i].tasks[index] = updatedTask
+                    break;
+                }
+            }
+        }
+        
+        let index = database.allTasks.count - 1
+        let indexPath = IndexPath(item: index, section: 2)
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
     
     func addTask(task: Task) {
-        tasks.append(task)
-        Database.shared.allTasks.append(task)
+        database.allTasks.append(task)
+        let taskLists = database.taskLists
         
-        let lastIndex = tasks.endIndex - 1
+        for i in taskLists.indices {
+            let taskCategoryName = task.category.name.lowercased().trimmingCharacters(in: .whitespaces)
+            let taskListCategoryName = taskLists[i].category.name.lowercased().trimmingCharacters(in: .whitespaces)
+            
+            if taskCategoryName == taskListCategoryName{
+                database.taskLists[i].tasks.append(task)
+            }
+        }
+        
+        
+        let lastIndex = database.allTasks.endIndex - 1
         let indexPath = IndexPath(item: lastIndex, section: 2)
         tableView.insertRows(at: [indexPath], with: .fade)
     }

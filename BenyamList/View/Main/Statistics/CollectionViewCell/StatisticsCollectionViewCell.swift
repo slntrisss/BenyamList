@@ -69,7 +69,10 @@ extension StatisticsCollectionViewCell{
     }
     
     private func createCenteredPieChartText() -> NSMutableAttributedString {
-        let percentage = getPercentage(val1: Double(statistics!.totalNumberOfTasks), val2: Double(statistics!.completedNumberOfTasks))
+        guard let statistics = statistics else{
+            fatalError("Error getting statistics data")
+        }
+        let percentage = getPercentage(val1: Double(statistics.totalNumberOfTasks), val2: Double(statistics.completedNumberOfTasks))
         let percentageStr = String(format: "%.f", percentage)
         
         //percentage

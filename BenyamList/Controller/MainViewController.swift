@@ -9,11 +9,7 @@ import UIKit
 
 class MainViewController: UITableViewController {
     
-    var statistics = Database.shared.statistics
-    var cards = Database.shared.cards
-    var taskLists = Database.shared.taskLists
-    var allTasks = Database.shared.allTasks
-    var allCategories = Database.shared.allCategories
+    let database = Database.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,24 +50,27 @@ class MainViewController: UITableViewController {
             return 1
         }
         else{
-            return taskLists.count
+            return Database.shared.taskLists.count
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: StatisticsCell.identifier, for: indexPath) as! StatisticsCell
+            let statistics = database.statistics
             cell.configue(with: statistics)
             return cell
         }
         else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: CardTableViewCell.identifier, for: indexPath) as! CardTableViewCell
             cell.cardCellDelegate = self
+            let cards = database.cards
             cell.configure(with: cards)
             return cell
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as! TaskTableViewCell
+            let taskLists = database.taskLists
             cell.configure(with: taskLists[indexPath.row])
             return cell
         }
@@ -97,6 +96,17 @@ class MainViewController: UITableViewController {
         return nil
         
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 {
+            let taskLists = database.taskLists
+            let taskListVC = TaskListTableViewController()
+            taskListVC.index = indexPath.row
+            taskListVC.title = taskLists[indexPath.row].category.name
+            taskListVC.category = taskLists[indexPath.row].category
+            self.navigationController?.pushViewController(taskListVC, animated: true)
+        }
+    }
 
 }
 
@@ -110,9 +120,10 @@ extension MainViewController: NewTaskList, CardCellProtocol{
     }
     
     func saveTaskList(_ taskList: TaskList) {
-        taskLists.append(taskList)
-        Database.shared.taskLists.append(taskList)
-        let index = taskLists.count - 1
+        let category = taskList.category
+        database.taskLists.append(taskList)
+        database.allCategories.append(category)
+        let index = database.taskLists.count - 1
         let indexPath = IndexPath(item: index, section: 2)
         tableView.insertRows(at: [indexPath], with: .fade)
     }

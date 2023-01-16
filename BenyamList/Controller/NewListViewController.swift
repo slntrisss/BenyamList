@@ -63,7 +63,7 @@ class NewListViewController: UIViewController {
     }()
     
     private var taskList: TaskList!
-    private var categoryColor: CategoryColor!
+    private var categoryColor = CategoryColor.dodgerBlue
     weak var newTaskListDelegate: NewTaskList!
 
     override func viewDidLoad() {

@@ -19,12 +19,19 @@ class AllTaskTableViewCell: UITableViewCell {
     
     static let identifier = "AllTaskTableViewCell"
     
+    var showCategoryLabel = true
+    var showPriorityLabel = true
+    var showStatusLabel = true
+    
     static func nib() -> UINib{
         return UINib(nibName: identifier, bundle: nil)
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        statusLabel.isHidden = true
+        categoryLabel.isHidden = true
+        priorityLabel.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,9 +47,22 @@ class AllTaskTableViewCell: UITableViewCell {
         }
         timeLabel.text = getTime(from: task.deadline)
         
-        setCategory(category: task.category)
-        setStatus(status: task.status)
-        setPriority(priority: task.priority)
+        showLabels(task: task)
+    }
+    
+    private func showLabels(task: Task){
+        if showStatusLabel{
+            statusLabel.isHidden = false
+            setStatus(status: task.status)
+        }
+        if showCategoryLabel{
+            categoryLabel.isHidden = false
+            setCategory(category: task.category)
+        }
+        if showPriorityLabel{
+            priorityLabel.isHidden = false
+            setPriority(priority: task.priority)
+        }
     }
     
     private func setCategory(category: Category){
