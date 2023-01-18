@@ -10,6 +10,8 @@ import UIKit
 class MainViewController: UITableViewController {
     
     let database = Database.shared
+    
+    var selectedTaskListIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,20 @@ class MainViewController: UITableViewController {
         vc.modalPresentationStyle = .popover
         vc.newTaskListDelegate = self
         self.present(UINavigationController(rootViewController: vc), animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("view did appear")
+        reload()
+    }
+    
+    private func reload(){
+        let sections = IndexSet(integersIn: 0..<2)
+        tableView.reloadSections(sections, with: .none)
+        if let selectedTaskListIndex = selectedTaskListIndex {
+            tableView.reloadRows(at: [IndexPath(item: selectedTaskListIndex, section: 2)], with: .fade)
+        }
     }
 
     // MARK: - Table view data source
@@ -99,6 +115,7 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
+            selectedTaskListIndex = indexPath.row
             let taskLists = database.taskLists
             let taskListVC = TaskListTableViewController()
             taskListVC.index = indexPath.row

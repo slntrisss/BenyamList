@@ -62,11 +62,13 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         NotificationCenter.default.addObserver(self, selector: #selector(setPriority(_:)), name: NSNotification.Name("NewTaskPriorityPickerCell.priority"), object: nil)
         
-        if taskType == .old && task.deadline != nil{
+        if taskType == .old {
             navigationItem.rightBarButtonItem?.isEnabled = true
-            timeReminder = true
-            dateReminder = true
-            isPriorityEnabled = true
+            if task.deadline != nil{
+                timeReminder = true
+                dateReminder = true
+                isPriorityEnabled = true
+            }
         }
     }
     
@@ -84,12 +86,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             delegate?.updateTask(updatedTask: task)
         }else{
             delegate?.addTask(task: task)
-        }
-        
-        if let deadline = task.deadline{
-            print(deadline.formatted(date: .abbreviated, time: .shortened))
-        }else{
-            print("Date is not provided")
         }
         dismiss(animated: true)
     }

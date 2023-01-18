@@ -31,7 +31,7 @@ class TaskTableViewCell: UITableViewCell {
     func configure(with taskList: TaskList){
         taskLabel.text = taskList.category.name
         iconView.layer.cornerRadius = iconView.layer.bounds.height / 2.7
-        numberOfTasks.text = String(taskList.tasksNeedToBeCompleted)
+        numberOfTasks.text = String(taskList.tasks.count)
         iconView.clipsToBounds = true
         iconView.backgroundColor = .getColor(from: taskList.category.color)
     }

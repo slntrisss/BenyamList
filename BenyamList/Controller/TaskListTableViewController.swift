@@ -89,6 +89,17 @@ class TaskListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        let tasks = database.allTasks
+//        let taskDetailVC = TaskViewController()
+//        taskDetailVC.title = "Details"
+//        taskDetailVC.task = tasks[indexPath.row]
+//        let navBar = UINavigationController(rootViewController: taskDetailVC)
+//        navBar.modalPresentationStyle = .popover
+//        taskDetailVC.delegate = self
+//        taskDetailVC.taskType = .old
+//        present(navBar, animated: true)
+        
         let taskDetailVC = TaskViewController()
         taskDetailVC.title = "Details"
         taskDetailVC.task = database.taskLists[index].tasks[indexPath.row]

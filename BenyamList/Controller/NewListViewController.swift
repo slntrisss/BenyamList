@@ -168,6 +168,9 @@ extension NewListViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewTaskListCollectionViewCell.identifier, for: indexPath) as! NewTaskListCollectionViewCell
         let color = CategoryColor.allCases[indexPath.row]
+        if color == .dodgerBlue{
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+        }
         cell.configure(with: color, and: newListView.width * 0.25)
         return cell
     }
