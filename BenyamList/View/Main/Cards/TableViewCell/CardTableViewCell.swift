@@ -38,6 +38,7 @@ class CardTableViewCell: UITableViewCell {
     
     func configure(with cards: [Card]){
         self.cards = cards
+        cardCollectionView.reloadData()
     }
     
 }

@@ -33,6 +33,7 @@ class StatisticsCell: UITableViewCell {
     
     func configue(with statistics:[Statistics]){
         self.statistics = statistics
+        statisticsCollectionView.reloadData()
     }
     
 }

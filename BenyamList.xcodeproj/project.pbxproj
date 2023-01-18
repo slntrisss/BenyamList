@@ -21,6 +21,7 @@
 		FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */; };
 		FF5B45D72940CF6100F7CAB8 /* AllTaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5B45D52940CF6100F7CAB8 /* AllTaskTableViewCell.xib */; };
 		FF5B45DC2940D27900F7CAB8 /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45DB2940D27900F7CAB8 /* UILabelPadding.swift */; };
+		FF5CC0892978038700403233 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CC0882978038600403233 /* AppState.swift */; };
 		FF802017295A092000F94AE9 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF802016295A092000F94AE9 /* TaskViewController.swift */; };
 		FF80201C295A0DDF00F94AE9 /* NewTaskDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */; };
 		FF80201E295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */; };
@@ -77,6 +78,7 @@
 		FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTaskTableViewCell.swift; sourceTree = "<group>"; };
 		FF5B45D52940CF6100F7CAB8 /* AllTaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllTaskTableViewCell.xib; sourceTree = "<group>"; };
 		FF5B45DB2940D27900F7CAB8 /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
+		FF5CC0882978038600403233 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FF802016295A092000F94AE9 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskDetailCell.swift; sourceTree = "<group>"; };
 		FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskDateAndTimeCell.swift; sourceTree = "<group>"; };
@@ -207,6 +209,14 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		FF5CC08A2978047500403233 /* AppState */ = {
+			isa = PBXGroup;
+			children = (
+				FF5CC0882978038600403233 /* AppState.swift */,
+			);
+			path = AppState;
+			sourceTree = "<group>";
+		};
 		FF80201A295A0B0100F94AE9 /* New Task */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +259,7 @@
 		FFA64B83293630D40037091D /* BenyamList */ = {
 			isa = PBXGroup;
 			children = (
+				FF5CC08A2978047500403233 /* AppState */,
 				FFA64B9B293630FE0037091D /* Supportive Files */,
 				FFA64BBC29363B920037091D /* Extensions */,
 				FFA64B9A293630F80037091D /* View */,
@@ -575,6 +586,7 @@
 				FFE6B51A2938C3440062D15B /* TaskListViewController.swift in Sources */,
 				FFA64BD32936725E0037091D /* TaskTableViewCell.swift in Sources */,
 				FF5B45CE2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift in Sources */,
+				FF5CC0892978038700403233 /* AppState.swift in Sources */,
 				FFF04DBB295DAEC30050210E /* Database.swift in Sources */,
 				FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */,
 				FF37E22C293715C90098EAFC /* NewListViewController.swift in Sources */,

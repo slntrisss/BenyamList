@@ -123,11 +123,13 @@ extension TaskListTableViewController: TaskViewControllerDelegate{
         let lastIndex = database.taskLists[index].tasks.endIndex - 1
         let indexPath = IndexPath(item: lastIndex, section: 0)
         tableView.insertRows(at: [indexPath], with: .fade)
+        AppState.shared.stateHasChanged()
     }
     
     func updateTask(updatedTask: Task) {
         upToDate(updatedTask: updatedTask)
         tableView.reloadData()
+        AppState.shared.stateHasChanged()
     }
     
     private func upToDate(updatedTask: Task){

@@ -11,7 +11,7 @@ class MainViewController: UITableViewController {
     
     let database = Database.shared
     
-    var selectedTaskListIndex: Int?
+    var appStateChanged = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,8 @@ class MainViewController: UITableViewController {
         tableView.register(TaskHeaderView.nib(), forHeaderFooterViewReuseIdentifier: TaskHeaderView.identifier)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add List", style: .done, target: self, action: #selector(didTapAddListButton))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAppState), name: NSNotification.Name(AppState.name), object: nil)
     }
     
     
@@ -32,17 +34,19 @@ class MainViewController: UITableViewController {
         self.present(UINavigationController(rootViewController: vc), animated: true)
     }
     
+    @objc private func changeAppState(){
+        appStateChanged = true
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("view did appear")
         reload()
     }
     
     private func reload(){
-        let sections = IndexSet(integersIn: 0..<2)
-        tableView.reloadSections(sections, with: .none)
-        if let selectedTaskListIndex = selectedTaskListIndex {
-            tableView.reloadRows(at: [IndexPath(item: selectedTaskListIndex, section: 2)], with: .fade)
+        if appStateChanged{
+            tableView.reloadData()
+            appStateChanged.toggle()
         }
     }
 
@@ -66,7 +70,7 @@ class MainViewController: UITableViewController {
             return 1
         }
         else{
-            return Database.shared.taskLists.count
+            return database.taskLists.count
         }
     }
     
@@ -115,7 +119,6 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
-            selectedTaskListIndex = indexPath.row
             let taskLists = database.taskLists
             let taskListVC = TaskListTableViewController()
             taskListVC.index = indexPath.row

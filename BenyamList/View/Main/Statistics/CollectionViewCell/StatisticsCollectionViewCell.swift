@@ -35,7 +35,21 @@ class StatisticsCollectionViewCell: UICollectionViewCell {
         title.text = "Keep it up!"
         subTitle.text = "Your current progress"
         progressType.text = statistics.type.rawValue
-        setupPieChartView()
+        if statistics.totalNumberOfTasks == 0 {
+            title.isHidden = true
+            chartView.isHidden = true
+            progressBackgroundView.isHidden = true
+            subTitle.text = "Woohoo, no task due \(statistics.type == .overall ? "soon" : "today")!"
+            subTitle.textColor = .systemGray
+            subTitle.font = .systemFont(ofSize: 17, weight: .bold)
+        }else{
+            title.isHidden = false
+            chartView.isHidden = false
+            progressBackgroundView.isHidden = false
+            subTitle.textColor = .black
+            subTitle.font = .systemFont(ofSize: 14, weight: .regular)
+            setupPieChartView()
+        }
     }
 
 }
