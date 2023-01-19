@@ -120,7 +120,7 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             let taskLists = database.taskLists
-            let taskListVC = TaskListTableViewController()
+            let taskListVC = MainListTableViewController()
             taskListVC.index = indexPath.row
             taskListVC.title = taskLists[indexPath.row].category.name
             taskListVC.category = taskLists[indexPath.row].category
@@ -132,10 +132,40 @@ class MainViewController: UITableViewController {
 
 extension MainViewController: NewTaskList, CardCellProtocol{
     func cardCellPressed(_ row: Int) {
-        if row == 2{
+        if row == 0{
+            let collectionVC = TaskCollectionViewController()
+            collectionVC.title = "Scheduled"
+            
+            let data = getScheduleData()
+            collectionVC.taskLists = data.1
+            collectionVC.sectionTitles = data.0
+            
+            self.navigationController?.pushViewController(collectionVC, animated: true)
+        }
+        else if row == 1{
+            let collectionVC = TaskCollectionViewController()
+            collectionVC.title = "Today"
+            
+            let data = getTodayData()
+            collectionVC.taskLists = data.1
+            collectionVC.sectionTitles = data.0
+            
+            self.navigationController?.pushViewController(collectionVC, animated: true)
+        }
+        else if row == 2{
             let taskListVC = TaskListViewController()
             taskListVC.title = "All"
             self.navigationController?.pushViewController(taskListVC, animated: true)
+        }
+        else{
+            let collectionVC = TaskCollectionViewController()
+            collectionVC.title = "Missed"
+            
+            let data = getMissedData()
+            collectionVC.taskLists = data.1
+            collectionVC.sectionTitles = data.0
+            
+            self.navigationController?.pushViewController(collectionVC, animated: true)
         }
     }
     
@@ -146,5 +176,115 @@ extension MainViewController: NewTaskList, CardCellProtocol{
         let index = database.taskLists.count - 1
         let indexPath = IndexPath(item: index, section: 2)
         tableView.insertRows(at: [indexPath], with: .fade)
+    }
+    
+}
+
+extension MainViewController{
+    
+    //MARK: - Schedule
+    
+    private func getScheduleData() -> ([String], [[Task]]){
+        func getData() -> [Date: [Task]]{
+            var dateMap = [Date: [Task]]()
+            let tasks = database.allTasks
+            for task in tasks {
+                if let deadline = task.deadline{
+                    if var taskList = dateMap[deadline]{
+                        taskList.append(task)
+                        dateMap[deadline] = taskList
+                    }else{
+                        var taskList = [Task]()
+                        taskList.append(task)
+                        dateMap[deadline] = taskList
+                    }
+                }
+            }
+            
+            return dateMap
+        }
+        
+        var taskLists = [[Task]]()
+        var sectionTitles = [String]()
+        let data = getData()
+        
+        for date in data.keys.sorted(){
+            sectionTitles.append(date.formatted(date: .abbreviated, time: .omitted))
+            if let tasks = data[date]{
+                taskLists.append(tasks)
+            }
+        }
+        
+        return (sectionTitles, taskLists)
+    }
+    
+    //MARK: - Today
+    
+    private func getTodayData() -> ([String], [[Task]]){
+        func getData() -> [Date: [Task]]{
+            var dateMap = [Date: [Task]]()
+            let tasks = database.allTasks
+            for task in tasks {
+                if let deadline = task.deadline, Calendar.current.isDateInToday(deadline){
+                    if var taskList = dateMap[deadline]{
+                        taskList.append(task)
+                        dateMap[deadline] = taskList
+                    }else{
+                        var taskList = [Task]()
+                        taskList.append(task)
+                        dateMap[deadline] = taskList
+                    }
+                }
+            }
+            
+            return dateMap
+        }
+        
+        var taskLists = [[Task]]()
+        var sectionTitles = [String]()
+        let data = getData()
+        
+        for date in data.keys.sorted(){
+            sectionTitles.append(date.formatted(date: .omitted, time: .standard))
+            if let tasks = data[date]{
+                taskLists.append(tasks)
+            }
+        }
+        
+        return (sectionTitles, taskLists)
+    }
+    
+    //MARK: - Missed
+    private func getMissedData() -> ([String], [[Task]]) {
+        var taskLists = [[Task]]()
+        var sectionTitles = [String]()
+        
+        func getData() -> [Category: [Task]]{
+            var categoryMap: [Category: [Task]] = [:]
+            
+            for task in database.allTasks{
+                if let deadline = task.deadline, deadline < Calendar.current.startOfDay(for: Date.now){
+                    if var taskList = categoryMap[task.category]{
+                        taskList.append(task)
+                        categoryMap[task.category] = taskList
+                    }else{
+                        var taskList = [Task]()
+                        taskList.append(task)
+                        categoryMap[task.category] = taskList
+                    }
+                }
+            }
+            return categoryMap
+            
+        }
+        
+        let data = getData()
+        
+        data.forEach { (key: Category, values: [Task]) in
+            sectionTitles.append(key.name)
+            taskLists.append(values)
+        }
+                
+        return (sectionTitles, taskLists)
     }
 }

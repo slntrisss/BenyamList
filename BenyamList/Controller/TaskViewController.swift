@@ -82,6 +82,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func doneButtonPressed(){
+        if let deadline = task.deadline, deadline < Calendar.current.startOfDay(for: Date.now){
+            task.status = .misssed
+        }
         if taskType == .old{
             delegate?.updateTask(updatedTask: task)
         }else{
@@ -379,24 +382,22 @@ extension TaskViewController: NewTaskCategoryCellDelegate{
         
         if taskType == .old {
             let database = Database.shared
-            print("About to update")
             for i in database.taskLists.indices{
                 if let index = database.taskLists[i].tasks.firstIndex(where: {
                     $0.category.name == task.category.name
                 }){
                     database.taskLists[i].tasks.remove(at: index)
                     task.category = category
-                    print("About to replace")
                     if let newIndex = database.taskLists.firstIndex(where: {
                         $0.category.name == category.name
                     }){
                         database.taskLists[newIndex].tasks.append(task)
-                        print("replaced")
                     }
                     break
                 }
                 
             }
+            AppState.shared.reorderSortedCollection()
         }else{
             task.category = category
         }

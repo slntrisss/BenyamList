@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol CategoryViewCellDelegate: AnyObject{
+    func categorySelected(category: Category)
+}
+
 class CategoryViewCell: UITableViewCell {
     
     static let identifier = "CategoryViewCell"
     
     var categories = [Category]()
+    
+    weak var delegate: CategoryViewCellDelegate?
     
     lazy private var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -53,6 +59,12 @@ extension CategoryViewCell: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let len = categories[indexPath.row].name.count
         return CGSize(width: CGFloat(len * 15), height: categoryCollectionView.height * 0.8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let delegate = delegate{
+            delegate.categorySelected(category: categories[indexPath.row])
+        }
     }
     
 }

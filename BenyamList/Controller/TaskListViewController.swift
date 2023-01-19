@@ -19,6 +19,8 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }()
     
     let database = Database.shared
+    var tasks: [Task] = []
+    var selectedCategory: Category?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,10 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.register(DateViewCell.self, forCellReuseIdentifier: DateViewCell.identifier)
         tableView.register(CategoryViewCell.self, forCellReuseIdentifier: CategoryViewCell.identifier)
         tableView.register(AllTaskTableViewCell.nib(), forCellReuseIdentifier: AllTaskTableViewCell.identifier)
+        
+        tasks = database.allTasks
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: NSNotification.Name(AppState.reorderedCollectionName), object: nil)
         
         //addSubviews
         view.addSubview(tableView)
@@ -49,6 +55,12 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         navBar.modalPresentationStyle = .popover
         present(navBar, animated: true)
     }
+    
+    @objc func updateTableView(){
+        if let selectedCategory = selectedCategory {
+            self.categorySelected(category: selectedCategory)
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -68,7 +80,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         if section == 0 || section == 1 {
             return 1;
         }
-        return database.allTasks.count
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,10 +92,10 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryViewCell.identifier, for: indexPath) as! CategoryViewCell
             let categories = database.allCategories
             cell.categories = categories
+            cell.delegate = self
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: AllTaskTableViewCell.identifier, for: indexPath) as! AllTaskTableViewCell
-        let tasks = database.allTasks
         cell.configure(with: tasks[indexPath.row])
         return cell
     }
@@ -100,7 +112,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2{
-            let tasks = database.allTasks
             let taskDetailVC = TaskViewController()
             taskDetailVC.title = "Details"
             taskDetailVC.task = tasks[indexPath.row]
@@ -117,6 +128,11 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
 extension TaskListViewController: TaskViewControllerDelegate{
     
     func updateTask(updatedTask: Task) {
+        //Current view tasks
+        if let index = tasks.firstIndex(where: {$0.id == updatedTask.id}){
+            tasks[index] = updatedTask
+        }
+        
         //All tasks
         if let index = database.allTasks.firstIndex(where: {$0.id == updatedTask.id}){
             database.allTasks[index] = updatedTask
@@ -136,12 +152,14 @@ extension TaskListViewController: TaskViewControllerDelegate{
             }
         }
         
-        let index = database.allTasks.count - 1
+        let index = tasks.count - 1
         let indexPath = IndexPath(item: index, section: 2)
         tableView.reloadRows(at: [indexPath], with: .fade)
+        AppState.shared.reorderSortedCollection()
     }
     
     func addTask(task: Task) {
+        tasks.append(task)
         database.allTasks.append(task)
         let taskLists = database.taskLists
         
@@ -154,9 +172,29 @@ extension TaskListViewController: TaskViewControllerDelegate{
             }
         }
         
-        
-        let lastIndex = database.allTasks.endIndex - 1
+        let lastIndex = tasks.endIndex - 1
         let indexPath = IndexPath(item: lastIndex, section: 2)
         tableView.insertRows(at: [indexPath], with: .fade)
+        AppState.shared.reorderSortedCollection()
     }
 }
+
+extension TaskListViewController: CategoryViewCellDelegate{
+    func categorySelected(category: Category) {
+        self.selectedCategory = category
+        let allTasks = database.allTasks
+        tasks = []
+        let categoryName = category.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        for task in allTasks {
+            let taskCategoryName = task.category.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+            if taskCategoryName == categoryName{
+                tasks.append(task)
+            }
+        }
+        tableView.beginUpdates()
+        tableView.reloadSections(IndexSet(integer: 2), with: .fade)
+        tableView.endUpdates()
+    }
+}
+
+

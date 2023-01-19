@@ -15,13 +15,16 @@
 		FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */; };
 		FF4251AA29658B9200DCA9D7 /* NewTaskCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4251A929658B9200DCA9D7 /* NewTaskCategoryCell.swift */; };
 		FF4251AD29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4251AC29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift */; };
-		FF4368F3296ECC9800BBE33D /* TaskListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4368F2296ECC9800BBE33D /* TaskListTableViewController.swift */; };
+		FF4368F3296ECC9800BBE33D /* MainListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4368F2296ECC9800BBE33D /* MainListTableViewController.swift */; };
 		FF5B45C529408A9900F7CAB8 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */; };
 		FF5B45CE2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */; };
 		FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */; };
 		FF5B45D72940CF6100F7CAB8 /* AllTaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5B45D52940CF6100F7CAB8 /* AllTaskTableViewCell.xib */; };
 		FF5B45DC2940D27900F7CAB8 /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45DB2940D27900F7CAB8 /* UILabelPadding.swift */; };
 		FF5CC0892978038700403233 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CC0882978038600403233 /* AppState.swift */; };
+		FF5CC08C2978492E00403233 /* TaskCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CC08B2978492E00403233 /* TaskCollectionViewController.swift */; };
+		FF5CC09029786EF600403233 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CC08E29786EF600403233 /* TableViewCell.swift */; };
+		FF5CC09129786EF600403233 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5CC08F29786EF600403233 /* TableViewCell.xib */; };
 		FF802017295A092000F94AE9 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF802016295A092000F94AE9 /* TaskViewController.swift */; };
 		FF80201C295A0DDF00F94AE9 /* NewTaskDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */; };
 		FF80201E295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */; };
@@ -72,13 +75,16 @@
 		FF37E230293743AF0098EAFC /* NewTaskListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskListCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF4251A929658B9200DCA9D7 /* NewTaskCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskCategoryCell.swift; sourceTree = "<group>"; };
 		FF4251AC29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
-		FF4368F2296ECC9800BBE33D /* TaskListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewController.swift; sourceTree = "<group>"; };
+		FF4368F2296ECC9800BBE33D /* MainListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListTableViewController.swift; sourceTree = "<group>"; };
 		FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTaskTableViewCell.swift; sourceTree = "<group>"; };
 		FF5B45D52940CF6100F7CAB8 /* AllTaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllTaskTableViewCell.xib; sourceTree = "<group>"; };
 		FF5B45DB2940D27900F7CAB8 /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
 		FF5CC0882978038600403233 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		FF5CC08B2978492E00403233 /* TaskCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionViewController.swift; sourceTree = "<group>"; };
+		FF5CC08E29786EF600403233 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		FF5CC08F29786EF600403233 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		FF802016295A092000F94AE9 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		FF80201B295A0DDF00F94AE9 /* NewTaskDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskDetailCell.swift; sourceTree = "<group>"; };
 		FF80201D295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskDateAndTimeCell.swift; sourceTree = "<group>"; };
@@ -217,6 +223,15 @@
 			path = AppState;
 			sourceTree = "<group>";
 		};
+		FF5CC08D29786EB800403233 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				FF5CC08E29786EF600403233 /* TableViewCell.swift */,
+				FF5CC08F29786EF600403233 /* TableViewCell.xib */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
 		FF80201A295A0B0100F94AE9 /* New Task */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,7 +295,8 @@
 				FF37E22B293715C90098EAFC /* NewListViewController.swift */,
 				FFE6B5192938C3440062D15B /* TaskListViewController.swift */,
 				FF802016295A092000F94AE9 /* TaskViewController.swift */,
-				FF4368F2296ECC9800BBE33D /* TaskListTableViewController.swift */,
+				FF4368F2296ECC9800BBE33D /* MainListTableViewController.swift */,
+				FF5CC08B2978492E00403233 /* TaskCollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -426,6 +442,7 @@
 		FFE6B5292938FCF80062D15B /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				FF5CC08D29786EB800403233 /* Others */,
 				FFE6B52A2938FD010062D15B /* All */,
 			);
 			path = Sections;
@@ -519,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFA64B91293630D50037091D /* LaunchScreen.storyboard in Resources */,
+				FF5CC09129786EF600403233 /* TableViewCell.xib in Resources */,
 				FF9A0C4F293697FE0009D328 /* TaskHeaderView.xib in Resources */,
 				FFA64BBB293637540037091D /* StatisticsCollectionViewCell.xib in Resources */,
 				FFA64B8E293630D50037091D /* Assets.xcassets in Resources */,
@@ -595,12 +613,14 @@
 				FFA64BBA293637540037091D /* StatisticsCollectionViewCell.swift in Sources */,
 				FFA64B9D293631A20037091D /* MainViewController.swift in Sources */,
 				FFA64B85293630D40037091D /* AppDelegate.swift in Sources */,
-				FF4368F3296ECC9800BBE33D /* TaskListTableViewController.swift in Sources */,
+				FF5CC08C2978492E00403233 /* TaskCollectionViewController.swift in Sources */,
+				FF4368F3296ECC9800BBE33D /* MainListTableViewController.swift in Sources */,
 				FFA64BAE293634660037091D /* Priority.swift in Sources */,
 				FFA64BA6293633FF0037091D /* CategoryColor.swift in Sources */,
 				FFFC52F7293923D4004CA5D6 /* Extension+Date.swift in Sources */,
 				FF802022295A344C00F94AE9 /* NewTaskReminderCell.swift in Sources */,
 				FF9A0C4D293697D60009D328 /* TaskHeaderView.swift in Sources */,
+				FF5CC09029786EF600403233 /* TableViewCell.swift in Sources */,
 				FFD389BC293F76D1005F4CFA /* DateViewCell.swift in Sources */,
 				FF802017295A092000F94AE9 /* TaskViewController.swift in Sources */,
 				FF5B45DC2940D27900F7CAB8 /* UILabelPadding.swift in Sources */,

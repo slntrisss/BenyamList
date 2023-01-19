@@ -21,7 +21,7 @@ struct Card{
             }
         case .missed:
             for task in database.allTasks{
-                if task.status == .completed{
+                if task.status == .misssed{
                     count += 1
                 }
             }
