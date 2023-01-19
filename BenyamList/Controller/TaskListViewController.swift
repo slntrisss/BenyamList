@@ -90,7 +90,8 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryViewCell.identifier, for: indexPath) as! CategoryViewCell
-            let categories = database.allCategories
+            var categories = database.allCategories
+            categories.insert(Category(name: "All", color: .magenta), at: 0)
             cell.categories = categories
             cell.delegate = self
             return cell

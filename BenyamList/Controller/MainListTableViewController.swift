@@ -12,6 +12,7 @@ class MainListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var index: Int!
     var category: Category!
     let database = Database.shared
+    var taskList: TaskList!
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
@@ -32,19 +33,15 @@ class MainListTableViewController: UIViewController, UITableViewDelegate, UITabl
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis"), style: .done, target: self, action: #selector(editButtonPressed))
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        for view in self.navigationController?.navigationBar.subviews ?? [] {
-             let subviews = view.subviews
-             if subviews.count > 0, let label = subviews[0] as? UILabel {
-                 label.textColor = UIColor.getColor(from: category.color)
-             }
-        }
-    }
-    
     @objc func editButtonPressed(){
         let alert = UIAlertController(title: "Info...", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Show List Info", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Show List Info", style: .default, handler: {[weak self] _ in
+            let vc = NewListViewController()
+            vc.modalPresentationStyle = .popover
+            vc.newTaskListDelegate = self
+            vc.taskList = self?.taskList
+            self?.present(UINavigationController(rootViewController: vc), animated: true)
+        }))
         alert.addAction(UIAlertAction(title: "Add task", style: .default, handler: {[weak self] _ in
             guard let strongSelf = self else {
                 print("Error of conversion of self to strong")
@@ -60,7 +57,6 @@ class MainListTableViewController: UIViewController, UITableViewDelegate, UITabl
             newTaskVC.taskType = .new
             strongSelf.present(navBar, animated: true)
         }))
-        alert.addAction(UIAlertAction(title: "Edit tasks", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Sort", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Delete Task List", style: .destructive, handler: nil))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -135,4 +131,33 @@ extension MainListTableViewController: TaskViewControllerDelegate{
         }
     }
     
+}
+
+extension MainListTableViewController: NewTaskListDelegate{
+    func saveTaskList(_ taskList: TaskList) {
+        
+        for (i, task) in database.allTasks.enumerated(){
+            if task.category.name == self.category.name{
+                database.allTasks[i].category = taskList.category
+            }
+        }
+        
+        for (i, list) in database.taskLists.enumerated(){
+            if list.category.name == self.category.name{
+                database.taskLists[i] = TaskList(category: taskList.category, tasks: list.tasks)
+                for j in database.taskLists[i].tasks.indices{
+                    database.taskLists[i].tasks[j].category = taskList.category
+                }
+            }
+        }
+        
+        for (i, category) in database.allCategories.enumerated(){
+            if category.name == self.category.name{
+                database.allCategories[i] = taskList.category
+            }
+        }
+        
+        AppState.shared.stateHasChanged()
+        self.title = taskList.category.name
+    }
 }

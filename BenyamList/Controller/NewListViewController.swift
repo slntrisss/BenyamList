@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NewTaskList: AnyObject{
+protocol NewTaskListDelegate: AnyObject{
     func saveTaskList(_ taskList: TaskList)
 }
 
@@ -62,9 +62,9 @@ class NewListViewController: UIViewController {
         return collectionView
     }()
     
-    private var taskList: TaskList!
+    var taskList: TaskList?
     private var categoryColor = CategoryColor.dodgerBlue
-    weak var newTaskListDelegate: NewTaskList!
+    weak var newTaskListDelegate: NewTaskListDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +82,14 @@ class NewListViewController: UIViewController {
         iconView.addSubview(icon)
         newListView.addSubview(textField)
         scrollView.addSubview(colorCollectionView)
+        
+        //Init default values for views
+        
+        if let taskList = taskList {
+            textField.text = taskList.category.name
+            textField.textColor = UIColor.getColor(from: taskList.category.color)
+            iconView.backgroundColor = UIColor.getColor(from: taskList.category.color)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -168,8 +176,11 @@ extension NewListViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewTaskListCollectionViewCell.identifier, for: indexPath) as! NewTaskListCollectionViewCell
         let color = CategoryColor.allCases[indexPath.row]
-        if color == .dodgerBlue{
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+        if let taskList = taskList, color == taskList.category.color{
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+        }
+        else if taskList == nil && color == .dodgerBlue{
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
         }
         cell.configure(with: color, and: newListView.width * 0.25)
         return cell

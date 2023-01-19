@@ -122,6 +122,7 @@ class MainViewController: UITableViewController {
             let taskLists = database.taskLists
             let taskListVC = MainListTableViewController()
             taskListVC.index = indexPath.row
+            taskListVC.taskList = taskLists[indexPath.row]
             taskListVC.title = taskLists[indexPath.row].category.name
             taskListVC.category = taskLists[indexPath.row].category
             self.navigationController?.pushViewController(taskListVC, animated: true)
@@ -159,7 +160,7 @@ extension MainViewController{
     }
 }
 
-extension MainViewController: NewTaskList, CardCellProtocol{
+extension MainViewController: NewTaskListDelegate, CardCellProtocol{
     func cardCellPressed(_ row: Int) {
         if row == 0{
             let collectionVC = TaskCollectionViewController()
