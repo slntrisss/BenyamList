@@ -11,7 +11,6 @@ class TaskCollectionViewController: UIViewController {
     
     var sectionTitles: [String] = []
     var taskLists = [[Task]]()
-    var selectedIndex: (Int, Int)?
     var type: CollectionStyle = .Today
     let database = Database.shared
     
@@ -29,6 +28,7 @@ class TaskCollectionViewController: UIViewController {
         tableView.register(TableViewCell.nib(), forCellReuseIdentifier: TableViewCell.identifier)
         
         if type == .Today || type == .Scheduled{
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis"), style: .done, target: self, action: #selector(editButtonPressed))
             getScheduleData()
         }else{
             getMissedData()
@@ -38,6 +38,13 @@ class TaskCollectionViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         tableView.frame = view.bounds
+    }
+    
+    @objc func editButtonPressed(){
+        let alert = UIAlertController(title: "Info...", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Sort", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 
 }
@@ -55,6 +62,9 @@ extension TaskCollectionViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as! TableViewCell
         cell.configure(with: taskLists[indexPath.section][indexPath.row])
+        if type == .Missed{
+            cell.isUserInteractionEnabled = false
+        }
         return cell
     }
     
@@ -69,12 +79,13 @@ extension TaskCollectionViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             deleteTasks(at: indexPath)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            AppState.shared.stateHasChanged()
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if type == .Missed{
+            return
+        }
         let index = indexPath.row
         let section = indexPath.section
         let taskDetailVC = TaskViewController()
@@ -84,20 +95,14 @@ extension TaskCollectionViewController: UITableViewDataSource, UITableViewDelega
         navBar.modalPresentationStyle = .popover
         taskDetailVC.delegate = self
         taskDetailVC.taskType = .old
-        selectedIndex?.0 = section
-        selectedIndex?.1 = index
         present(navBar, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension TaskCollectionViewController: TaskViewControllerDelegate{
     func updateTask(updatedTask: Task) {
-        guard let selectedIndex = selectedIndex else{
-            print("Index has not been selected")
-            return
-        }
-        taskLists[selectedIndex.0][selectedIndex.1] = updatedTask
-
+        print("About to update")
         let database = Database.shared
         
         if let index = database.allTasks.firstIndex(where: {$0.id == updatedTask.id}){
@@ -107,27 +112,10 @@ extension TaskCollectionViewController: TaskViewControllerDelegate{
         for (i, taskList) in database.taskLists.enumerated(){
             if let index = taskList.tasks.firstIndex(where: {$0.id == updatedTask.id}){
                 database.taskLists[i].tasks[index] = updatedTask
-                return
+                break
             }
         }
-        let indexPath = IndexPath(item: selectedIndex.1, section: selectedIndex.0)
-        tableView.reloadRows(at: [indexPath], with: .fade)
-    }
-    
-    func addTask(task: Task) {
-        
-        
-        let database = Database.shared
-        
-        database.allTasks.append(task)
-        
-        
-        for (i, taskList) in database.taskLists.enumerated(){
-            if task.category.name == taskList.category.name{
-                database.taskLists[i].tasks.append(task)
-                return
-            }
-        }
+        reload()
     }
 }
 
@@ -148,13 +136,19 @@ extension TaskCollectionViewController{
                 database.taskLists[i].tasks.remove(at: index)
             }
         }
+        reload()
     }
 }
+
+
+
 
 extension TaskCollectionViewController{
     //MARK: - Schedule/Today
     
     private func getScheduleData() {
+        taskLists = [[Task]]()
+        sectionTitles = []
         let calendar = Calendar.current
         func getData() -> [Date: [Task]]{
             var dateMap = [Date: [Task]]()
@@ -221,6 +215,8 @@ extension TaskCollectionViewController{
     
     //MARK: - Missed
     private func getMissedData() {
+        taskLists = [[Task]]()
+        sectionTitles = []
         let calendar = Calendar.current
         func getData() -> [Category: [Task]]{
             var categoryMap: [Category: [Task]] = [:]
@@ -247,6 +243,19 @@ extension TaskCollectionViewController{
             sectionTitles.append(key.name)
             taskLists.append(values)
         }
+    }
+    
+    //MARK: - Reload TableView
+    private func reload(){
+        if type == .Scheduled || type == .Today{
+            getScheduleData()
+            tableView.reloadData()
+        }
+        else{
+            getMissedData()
+            tableView.reloadData()
+        }
+        AppState.shared.stateHasChanged()
     }
 }
 
