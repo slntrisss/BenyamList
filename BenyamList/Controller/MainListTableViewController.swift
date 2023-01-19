@@ -58,7 +58,30 @@ class MainListTableViewController: UIViewController, UITableViewDelegate, UITabl
             strongSelf.present(navBar, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Sort", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Delete Task List", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete Task List", style: .destructive, handler: { [weak self] _ in
+            guard let strongSelf = self else{
+                print("Error deleting task list in Main TaskListView")
+                return
+            }
+            let database = strongSelf.database
+            let index = strongSelf.index ?? 0
+            let tasks = database.taskLists[index].tasks
+            let allTasks = database.allTasks
+            var taskMap: [UUID: Task] = [:]
+            
+            for task in allTasks {
+                taskMap[task.id] = task
+            }
+            for task in tasks {
+                if taskMap[task.id] != nil{
+                    taskMap[task.id] = nil
+                }
+            }
+            database.allTasks = Array(taskMap.values)
+            database.taskLists.remove(at: index)
+            database.allCategories.remove(at: index)
+            strongSelf.navigationController?.popViewController(animated: true)
+        }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
