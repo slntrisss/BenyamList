@@ -56,4 +56,32 @@ extension TaskCollectionViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            deleteTasks(at: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            AppState.shared.stateHasChanged()
+        }
+    }
+}
+
+extension TaskCollectionViewController{
+    private func deleteTasks(at indexPath: IndexPath){
+        let section = indexPath.section
+        let index = indexPath.row
+        let database = Database.shared
+        
+        let task = taskLists[section].remove(at: index)
+        
+        if let index = database.allTasks.firstIndex(where: {$0.id == task.id}){
+            database.allTasks.remove(at: index)
+        }
+        
+        for (i, taskList) in database.taskLists.enumerated(){
+            if let index = taskList.tasks.firstIndex(where: {$0.id == task.id}){
+                database.taskLists[i].tasks.remove(at: index)
+            }
+        }
+    }
 }
