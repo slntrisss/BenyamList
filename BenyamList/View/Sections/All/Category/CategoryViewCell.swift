@@ -52,6 +52,9 @@ extension CategoryViewCell: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as! CategoryCollectionViewCell
+        if indexPath.row == 0{
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
+        }
         cell.configure(with: categories[indexPath.row])
         return cell
     }

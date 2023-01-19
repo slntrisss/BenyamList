@@ -87,7 +87,9 @@ extension NewTaskCategoryCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! NewTaskCategoryCollectionViewCell
-        let category = cell.category ?? Category(name: "All", color: .magenta)
-        delegate?.didSelectCategory(with: category)
+        if allCategories.count > 0 {
+            let category = cell.category ?? allCategories[0]
+            delegate?.didSelectCategory(with: category)
+        }
     }
 }

@@ -123,6 +123,33 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 && editingStyle == .delete{
+            deleteTask(at: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            AppState.shared.stateHasChanged()
+        }
+    }
+}
+
+extension TaskListViewController{
+    //delete task
+    private func deleteTask(at indexPath: IndexPath){
+        tasks.remove(at: indexPath.row)
+        let cell = tableView.cellForRow(at: indexPath) as! AllTaskTableViewCell
+        let task = cell.task
+        if let index = database.allTasks.firstIndex(where: {$0.id == task?.id}){
+            database.allTasks.remove(at: index)
+        }
+        for i in database.taskLists.indices{
+            if let index = database.taskLists[i].tasks.firstIndex(where: {$0.id == task?.id}){
+                database.taskLists[i].tasks.remove(at: index)
+                return
+            }
+        }
+        AppState.shared.stateHasChanged()
+    }
 }
 
 extension TaskListViewController: TaskViewControllerDelegate{
@@ -183,14 +210,18 @@ extension TaskListViewController: TaskViewControllerDelegate{
 
 extension TaskListViewController: CategoryViewCellDelegate{
     func categorySelected(category: Category) {
-        self.selectedCategory = category
-        let allTasks = database.allTasks
-        tasks = []
-        let categoryName = category.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        for task in allTasks {
-            let taskCategoryName = task.category.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-            if taskCategoryName == categoryName{
-                tasks.append(task)
+        if category.name == "All"{
+            tasks = database.allTasks
+        }else{
+            self.selectedCategory = category
+            let allTasks = database.allTasks
+            tasks = []
+            let categoryName = category.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+            for task in allTasks {
+                let taskCategoryName = task.category.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                if taskCategoryName == categoryName{
+                    tasks.append(task)
+                }
             }
         }
         tableView.beginUpdates()

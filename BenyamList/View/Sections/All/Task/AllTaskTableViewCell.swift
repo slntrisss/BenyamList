@@ -18,7 +18,7 @@ class AllTaskTableViewCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
     
     static let identifier = "AllTaskTableViewCell"
-    
+    var task: Task!
     var showCategoryLabel = true
     var showPriorityLabel = true
     var showStatusLabel = true
@@ -39,6 +39,7 @@ class AllTaskTableViewCell: UITableViewCell {
     }
     
     func configure(with task: Task){
+        self.task = task
         title.text = task.title
         if let taskDescription = task.details{
             detail.text = taskDescription

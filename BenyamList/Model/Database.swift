@@ -19,9 +19,9 @@ class Database{
                  Card(type: .all, icon: "tray.fill", iconBackgroundColor: "#808080"),
                  Card(type: .missed, icon: "calendar.badge.exclamationmark", iconBackgroundColor: "#FD2424")]
     
-    var taskLists = [TaskList]()
+    var taskLists = [TaskList(category: Category(name: "All", color: .magenta), tasks: [])]
     
-    var allCategories = [Category]()
+    var allCategories:[Category] = [Category(name: "All", color: .magenta)]
     
     var allTasks = [Task]()
     
