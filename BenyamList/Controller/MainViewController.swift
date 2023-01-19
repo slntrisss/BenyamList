@@ -184,6 +184,9 @@ extension MainViewController: NewTaskList, CardCellProtocol{
         else if row == 2{
             let taskListVC = TaskListViewController()
             taskListVC.title = "All"
+            if database.allCategories.count > 0{
+                taskListVC.selectedCategory = database.allCategories[0]
+            }
             self.navigationController?.pushViewController(taskListVC, animated: true)
         }
         else{

@@ -212,6 +212,7 @@ extension TaskListViewController: CategoryViewCellDelegate{
     func categorySelected(category: Category) {
         if category.name == "All"{
             tasks = database.allTasks
+            self.selectedCategory = category
         }else{
             self.selectedCategory = category
             let allTasks = database.allTasks
