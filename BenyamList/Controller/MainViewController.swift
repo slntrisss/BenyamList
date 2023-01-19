@@ -164,21 +164,13 @@ extension MainViewController: NewTaskList, CardCellProtocol{
         if row == 0{
             let collectionVC = TaskCollectionViewController()
             collectionVC.title = "Scheduled"
-            
-            let data = getScheduleData()
-            collectionVC.taskLists = data.1
-            collectionVC.sectionTitles = data.0
-            
+            collectionVC.type = .Scheduled
             self.navigationController?.pushViewController(collectionVC, animated: true)
         }
         else if row == 1{
             let collectionVC = TaskCollectionViewController()
             collectionVC.title = "Today"
-            
-            let data = getTodayData()
-            collectionVC.taskLists = data.1
-            collectionVC.sectionTitles = data.0
-            
+            collectionVC.type = .Today
             self.navigationController?.pushViewController(collectionVC, animated: true)
         }
         else if row == 2{
@@ -192,11 +184,7 @@ extension MainViewController: NewTaskList, CardCellProtocol{
         else{
             let collectionVC = TaskCollectionViewController()
             collectionVC.title = "Missed"
-            
-            let data = getMissedData()
-            collectionVC.taskLists = data.1
-            collectionVC.sectionTitles = data.0
-            
+            collectionVC.type = .Missed
             self.navigationController?.pushViewController(collectionVC, animated: true)
         }
     }
@@ -210,113 +198,4 @@ extension MainViewController: NewTaskList, CardCellProtocol{
         tableView.insertRows(at: [indexPath], with: .fade)
     }
     
-}
-
-extension MainViewController{
-    
-    //MARK: - Schedule
-    
-    private func getScheduleData() -> ([String], [[Task]]){
-        func getData() -> [Date: [Task]]{
-            var dateMap = [Date: [Task]]()
-            let tasks = database.allTasks
-            for task in tasks {
-                if let deadline = task.deadline{
-                    if var taskList = dateMap[deadline]{
-                        taskList.append(task)
-                        dateMap[deadline] = taskList
-                    }else{
-                        var taskList = [Task]()
-                        taskList.append(task)
-                        dateMap[deadline] = taskList
-                    }
-                }
-            }
-            
-            return dateMap
-        }
-        
-        var taskLists = [[Task]]()
-        var sectionTitles = [String]()
-        let data = getData()
-        
-        for date in data.keys.sorted(){
-            sectionTitles.append(date.formatted(date: .abbreviated, time: .omitted))
-            if let tasks = data[date]{
-                taskLists.append(tasks)
-            }
-        }
-        
-        return (sectionTitles, taskLists)
-    }
-    
-    //MARK: - Today
-    
-    private func getTodayData() -> ([String], [[Task]]){
-        func getData() -> [Date: [Task]]{
-            var dateMap = [Date: [Task]]()
-            let tasks = database.allTasks
-            for task in tasks {
-                if let deadline = task.deadline, Calendar.current.isDateInToday(deadline){
-                    if var taskList = dateMap[deadline]{
-                        taskList.append(task)
-                        dateMap[deadline] = taskList
-                    }else{
-                        var taskList = [Task]()
-                        taskList.append(task)
-                        dateMap[deadline] = taskList
-                    }
-                }
-            }
-            
-            return dateMap
-        }
-        
-        var taskLists = [[Task]]()
-        var sectionTitles = [String]()
-        let data = getData()
-        
-        for date in data.keys.sorted(){
-            sectionTitles.append(date.formatted(date: .omitted, time: .standard))
-            if let tasks = data[date]{
-                taskLists.append(tasks)
-            }
-        }
-        
-        return (sectionTitles, taskLists)
-    }
-    
-    //MARK: - Missed
-    private func getMissedData() -> ([String], [[Task]]) {
-        var taskLists = [[Task]]()
-        var sectionTitles = [String]()
-        
-        func getData() -> [Category: [Task]]{
-            var categoryMap: [Category: [Task]] = [:]
-            
-            for task in database.allTasks{
-                if let deadline = task.deadline, deadline < Calendar.current.startOfDay(for: Date.now){
-                    if var taskList = categoryMap[task.category]{
-                        taskList.append(task)
-                        categoryMap[task.category] = taskList
-                    }else{
-                        var taskList = [Task]()
-                        taskList.append(task)
-                        categoryMap[task.category] = taskList
-                    }
-                }
-            }
-            return categoryMap
-            
-        }
-        
-        let data = getData()
-        
-        data.forEach { (key: Category, values: [Task]) in
-            sectionTitles.append(key.name)
-            taskLists.append(values)
-        }
-                
-        return (sectionTitles, taskLists)
-    }
 }

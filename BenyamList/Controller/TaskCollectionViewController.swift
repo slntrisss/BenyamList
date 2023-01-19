@@ -10,7 +10,10 @@ import UIKit
 class TaskCollectionViewController: UIViewController {
     
     var sectionTitles: [String] = []
-    var taskLists:[[Task]] = []
+    var taskLists = [[Task]]()
+    var selectedIndex: (Int, Int)?
+    var type: CollectionStyle = .Today
+    let database = Database.shared
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
@@ -24,6 +27,12 @@ class TaskCollectionViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(TableViewCell.nib(), forCellReuseIdentifier: TableViewCell.identifier)
+        
+        if type == .Today || type == .Scheduled{
+            getScheduleData()
+        }else{
+            getMissedData()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -64,6 +73,62 @@ extension TaskCollectionViewController: UITableViewDataSource, UITableViewDelega
             AppState.shared.stateHasChanged()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let section = indexPath.section
+        let taskDetailVC = TaskViewController()
+        taskDetailVC.title = "Details"
+        taskDetailVC.task = taskLists[section][index]
+        let navBar = UINavigationController(rootViewController: taskDetailVC)
+        navBar.modalPresentationStyle = .popover
+        taskDetailVC.delegate = self
+        taskDetailVC.taskType = .old
+        selectedIndex?.0 = section
+        selectedIndex?.1 = index
+        present(navBar, animated: true)
+    }
+}
+
+extension TaskCollectionViewController: TaskViewControllerDelegate{
+    func updateTask(updatedTask: Task) {
+        guard let selectedIndex = selectedIndex else{
+            print("Index has not been selected")
+            return
+        }
+        taskLists[selectedIndex.0][selectedIndex.1] = updatedTask
+
+        let database = Database.shared
+        
+        if let index = database.allTasks.firstIndex(where: {$0.id == updatedTask.id}){
+            database.allTasks[index] = updatedTask
+        }
+        
+        for (i, taskList) in database.taskLists.enumerated(){
+            if let index = taskList.tasks.firstIndex(where: {$0.id == updatedTask.id}){
+                database.taskLists[i].tasks[index] = updatedTask
+                return
+            }
+        }
+        let indexPath = IndexPath(item: selectedIndex.1, section: selectedIndex.0)
+        tableView.reloadRows(at: [indexPath], with: .fade)
+    }
+    
+    func addTask(task: Task) {
+        
+        
+        let database = Database.shared
+        
+        database.allTasks.append(task)
+        
+        
+        for (i, taskList) in database.taskLists.enumerated(){
+            if task.category.name == taskList.category.name{
+                database.taskLists[i].tasks.append(task)
+                return
+            }
+        }
+    }
 }
 
 extension TaskCollectionViewController{
@@ -84,4 +149,107 @@ extension TaskCollectionViewController{
             }
         }
     }
+}
+
+extension TaskCollectionViewController{
+    //MARK: - Schedule/Today
+    
+    private func getScheduleData() {
+        let calendar = Calendar.current
+        func getData() -> [Date: [Task]]{
+            var dateMap = [Date: [Task]]()
+            let tasks = database.allTasks
+            for task in tasks {
+                if let deadline = task.deadline{
+                    if (type == .Scheduled && deadline >= calendar.startOfDay(for: Date.now)) ||
+                        (type == .Today && calendar.isDateInToday(deadline)) {
+                        if var taskList = dateMap[deadline]{
+                            taskList.append(task)
+                            dateMap[deadline] = taskList
+                        }else{
+                            var taskList = [Task]()
+                            taskList.append(task)
+                            dateMap[deadline] = taskList
+                        }
+                    }
+                }
+            }
+            
+            return dateMap
+        }
+        
+        let data = getData().sorted(by: {$0.key < $1.key })
+        var dates: Set<String> = []
+        var index = -1
+        data.forEach { (date: Date, tasks: [Task]) in
+            let formattedDate: String
+            switch self.type{
+            case .Today:
+                let components = calendar.dateComponents([.hour], from: date)
+                guard let hour = components.hour else{
+                    print("Today collection time conversion error")
+                    return
+                }
+                if hour < 10 {
+                    formattedDate = "0\(date.formatted(date: .omitted, time: .shortened))"
+                }else{
+                    formattedDate = date.formatted(date: .omitted, time: .shortened)
+                }
+            default:
+                if calendar.isDateInToday(date){
+                    formattedDate = "Today"
+                }
+                else if calendar.isDateInTomorrow(date){
+                    formattedDate = "Tomorrow"
+                }
+                else{
+                    formattedDate = date.formatted(date: .abbreviated, time: .omitted)
+                }
+            }
+            
+            if dates.contains(formattedDate){
+                taskLists[index] += tasks
+            }else{
+                sectionTitles.append(formattedDate)
+                taskLists.append(tasks)
+                index += 1
+                dates.insert(formattedDate)
+            }
+        }
+        
+    }
+    
+    //MARK: - Missed
+    private func getMissedData() {
+        let calendar = Calendar.current
+        func getData() -> [Category: [Task]]{
+            var categoryMap: [Category: [Task]] = [:]
+            
+            for task in database.allTasks{
+                if let deadline = task.deadline, deadline < calendar.startOfDay(for: Date.now){
+                    if var taskList = categoryMap[task.category]{
+                        taskList.append(task)
+                        categoryMap[task.category] = taskList
+                    }else{
+                        var taskList = [Task]()
+                        taskList.append(task)
+                        categoryMap[task.category] = taskList
+                    }
+                }
+            }
+            return categoryMap
+            
+        }
+        
+        let data = getData().sorted(by: {$0.key.name < $1.key.name})
+        
+        data.forEach { (key: Category, values: [Task]) in
+            sectionTitles.append(key.name)
+            taskLists.append(values)
+        }
+    }
+}
+
+enum CollectionStyle{
+    case Scheduled, Today, Missed
 }
