@@ -156,6 +156,7 @@ extension TaskListViewController: TaskViewControllerDelegate{
         let indexPath = IndexPath(item: index, section: 2)
         tableView.reloadRows(at: [indexPath], with: .fade)
         AppState.shared.reorderSortedCollection()
+        AppState.shared.stateHasChanged()
     }
     
     func addTask(task: Task) {
@@ -176,6 +177,7 @@ extension TaskListViewController: TaskViewControllerDelegate{
         let indexPath = IndexPath(item: lastIndex, section: 2)
         tableView.insertRows(at: [indexPath], with: .fade)
         AppState.shared.reorderSortedCollection()
+        AppState.shared.stateHasChanged()
     }
 }
 

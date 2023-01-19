@@ -127,7 +127,36 @@ class MainViewController: UITableViewController {
             self.navigationController?.pushViewController(taskListVC, animated: true)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 && editingStyle == .delete {
+            let index = indexPath.row
+            deleteTaskList(at: index)
+            tableView.reloadData()
+        }
+    }
 
+}
+
+extension MainViewController{
+    //Delete tasklist
+    private func deleteTaskList(at index: Int){
+        let tasks = database.taskLists[index].tasks
+        let allTasks = database.allTasks
+        var taskMap: [UUID: Task] = [:]
+        
+        for task in allTasks {
+            taskMap[task.id] = task
+        }
+        for task in tasks {
+            if taskMap[task.id] != nil{
+                taskMap[task.id] = nil
+            }
+        }
+        database.allTasks = Array(taskMap.values)
+        database.taskLists.remove(at: index)
+        database.allCategories.remove(at: index)
+    }
 }
 
 extension MainViewController: NewTaskList, CardCellProtocol{
