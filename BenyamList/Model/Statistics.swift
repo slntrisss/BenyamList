@@ -24,7 +24,24 @@ struct Statistics{
         }
         return count
     }
-    var completedNumberOfTasks: Int
+    var completedNumberOfTasks: Int{
+        var count = 0
+        if self.type == .overall{
+            for task in Database.shared.allTasks{
+                if task.status == .completed{
+                    count += 1
+                }
+            }
+        }else if self.type == .today{
+            for task in Database.shared.allTasks{
+                if let deadline = task.deadline, Calendar.current.isDateInToday(deadline),
+                    task.status == .completed{
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
     let type: StatisticsType
     
     enum StatisticsType: String{

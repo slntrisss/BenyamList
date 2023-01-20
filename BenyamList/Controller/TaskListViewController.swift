@@ -35,30 +35,29 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: NSNotification.Name(AppState.reorderedCollectionName), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(dateSelected(_:)), name: NSNotification.Name("com.benyam.BenyamList.dateSelected"), object: nil)
+        
         //addSubviews
         view.addSubview(tableView)
         tableView.anchor(leading: view.leadingAnchor, top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Task",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(addNewTask))
         
-    }
-    
-    @objc func addNewTask(){
-        let newTaskVC = TaskViewController()
-        let navBar = UINavigationController(rootViewController: newTaskVC)
-        newTaskVC.title = "New Task"
-        newTaskVC.taskType = .new
-        newTaskVC.delegate = self
-        newTaskVC.task = Task(title: "", deadline: nil)
-        navBar.modalPresentationStyle = .popover
-        present(navBar, animated: true)
     }
     
     @objc func updateTableView(){
         if let selectedCategory = selectedCategory {
             self.categorySelected(category: selectedCategory)
+        }
+    }
+    
+    @objc private func dateSelected(_ notification: NSNotification){
+        if let userInfo = notification.userInfo, let date = userInfo["date"] as? Date{
+            tasks = []
+            for task in database.allTasks {
+                if let deadline = task.deadline, Calendar.current.isDate(deadline, inSameDayAs: date){
+                    tasks.append(task)
+                }
+            }
+            tableView.reloadSections(IndexSet(integer: 2), with: .fade)
         }
     }
 
@@ -90,8 +89,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryViewCell.identifier, for: indexPath) as! CategoryViewCell
-            var categories = database.allCategories
-            categories.insert(Category(name: "All", color: .magenta), at: 0)
+            let categories = database.allCategories
             cell.categories = categories
             cell.delegate = self
             return cell
@@ -207,27 +205,6 @@ extension TaskListViewController: TaskViewControllerDelegate{
         let index = tasks.count - 1
         let indexPath = IndexPath(item: index, section: 2)
         tableView.reloadRows(at: [indexPath], with: .fade)
-        AppState.shared.reorderSortedCollection()
-        AppState.shared.stateHasChanged()
-    }
-    
-    func addTask(task: Task) {
-        tasks.append(task)
-        database.allTasks.append(task)
-        let taskLists = database.taskLists
-        
-        for i in taskLists.indices {
-            let taskCategoryName = task.category.name.lowercased().trimmingCharacters(in: .whitespaces)
-            let taskListCategoryName = taskLists[i].category.name.lowercased().trimmingCharacters(in: .whitespaces)
-            
-            if taskCategoryName == taskListCategoryName{
-                database.taskLists[i].tasks.append(task)
-            }
-        }
-        
-        let lastIndex = tasks.endIndex - 1
-        let indexPath = IndexPath(item: lastIndex, section: 2)
-        tableView.insertRows(at: [indexPath], with: .fade)
         AppState.shared.reorderSortedCollection()
         AppState.shared.stateHasChanged()
     }

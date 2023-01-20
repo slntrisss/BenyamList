@@ -11,8 +11,8 @@ class Database{
     
     static let shared = Database()
     
-    var statistics = [Statistics( completedNumberOfTasks: 0, type: .today),
-                      Statistics( completedNumberOfTasks: 0, type: .overall)]
+    var statistics = [Statistics(type: .today),
+                      Statistics(type: .overall)]
     
     var cards = [Card(type: .scheduled, icon: "calendar.badge.clock", iconBackgroundColor: "#FD8C3D"),
                  Card(type: .today, icon: "list.bullet.rectangle", iconBackgroundColor: "#2C65FD"),

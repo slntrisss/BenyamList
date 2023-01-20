@@ -32,6 +32,7 @@ class DateViewCell: UITableViewCell {
         calendar.scrollDirection = .horizontal
         calendar.backgroundColor = .systemGray5
         calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.delegate = self
         return calendar
     }()
     
@@ -121,6 +122,14 @@ class DateViewCell: UITableViewCell {
         return "\(formatter.string(from: date))\n\(weekDayFormatter.string(from: date))"
     }
     
+}
+
+extension DateViewCell: FSCalendarDelegate{
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        var userInfo:[String: Date] = [:]
+        userInfo["date"] = date
+        NotificationCenter.default.post(name: NSNotification.Name("com.benyam.BenyamList.dateSelected"), object: nil, userInfo: userInfo)
+    }
 }
 
 extension DateViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{

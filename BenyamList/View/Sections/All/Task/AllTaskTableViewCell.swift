@@ -114,9 +114,7 @@ class AllTaskTableViewCell: UITableViewCell {
     
     private func getTime(from date: Date?) -> String{
         if let date = date {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm"
-            return formatter.string(from: date)
+            return "\(date.formatted(date: .abbreviated, time: .omitted))\n\(date.formatted(date: .omitted, time: .shortened))"
         }
         return ""
     }

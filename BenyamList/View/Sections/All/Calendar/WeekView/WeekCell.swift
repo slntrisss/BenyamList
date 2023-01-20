@@ -80,8 +80,16 @@ class WeekCell: UICollectionViewCell {
     }
     
     private func checkIfSelected(){
+        guard let index = index, let date = self.weekDays?.weekDate[index] else {
+            print("Error getting selected date")
+            return
+        }
+
+        var userInfo:[String: Date] = [:]
+        userInfo["date"] = date
+        NotificationCenter.default.post(name: NSNotification.Name("com.benyam.BenyamList.dateSelected"), object: nil, userInfo: userInfo)
         
-        if let weekDays = self.weekDays, let index = self.index,
+        if let weekDays = self.weekDays,
            Date.now.getDayOfTheMonth() == weekDays.weekDate[index].getDayOfTheMonth(){
             return
         }

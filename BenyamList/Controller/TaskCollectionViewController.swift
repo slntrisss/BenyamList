@@ -53,7 +53,7 @@ extension TaskCollectionViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as! TableViewCell
-        cell.configure(with: taskLists[indexPath.section][indexPath.row])
+        cell.configure(with: taskLists[indexPath.section][indexPath.row], type: type)
         if type == .Missed{
             cell.isUserInteractionEnabled = false
         }

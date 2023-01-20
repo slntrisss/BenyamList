@@ -21,6 +21,7 @@ class TableViewCell: UITableViewCell {
     var showCategoryLabel = true
     var showPriorityLabel = true
     var showStatusLabel = true
+    var type: CollectionStyle?
     
     static func nib() -> UINib{
         return UINib(nibName: identifier, bundle: nil)
@@ -37,8 +38,9 @@ class TableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(with task: Task){
+    func configure(with task: Task, type: CollectionStyle){
         self.task = task
+        self.type = type
         if task.status == .completed{
             restyleTextLabels()
             showLabels(task: task)
@@ -112,10 +114,11 @@ class TableViewCell: UITableViewCell {
     }
     
     private func getTime(from date: Date?) -> String{
-        if let date = date {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm"
-            return formatter.string(from: date)
+        if let date = date, let type = type {
+            if type == .Today{
+                return "\(date.formatted(date: .omitted, time: .shortened))"
+            }
+            return "\(date.formatted(date: .abbreviated, time: .omitted))\n\(date.formatted(date: .omitted, time: .shortened))"
         }
         return ""
     }
