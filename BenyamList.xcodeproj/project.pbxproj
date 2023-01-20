@@ -16,6 +16,7 @@
 		FF4251AA29658B9200DCA9D7 /* NewTaskCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4251A929658B9200DCA9D7 /* NewTaskCategoryCell.swift */; };
 		FF4251AD29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4251AC29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift */; };
 		FF4368F3296ECC9800BBE33D /* MainListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4368F2296ECC9800BBE33D /* MainListTableViewController.swift */; };
+		FF4A3541297AAB54005401FD /* Extension+AttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A3540297AAB54005401FD /* Extension+AttributedString.swift */; };
 		FF5B45C529408A9900F7CAB8 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */; };
 		FF5B45CE2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */; };
 		FF5B45D62940CF6100F7CAB8 /* AllTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */; };
@@ -76,6 +77,7 @@
 		FF4251A929658B9200DCA9D7 /* NewTaskCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskCategoryCell.swift; sourceTree = "<group>"; };
 		FF4251AC29658D3700DCA9D7 /* NewTaskCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF4368F2296ECC9800BBE33D /* MainListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListTableViewController.swift; sourceTree = "<group>"; };
+		FF4A3540297AAB54005401FD /* Extension+AttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+AttributedString.swift"; sourceTree = "<group>"; };
 		FF5B45C429408A9900F7CAB8 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		FF5B45CD2940A0BD00F7CAB8 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF5B45D42940CF6100F7CAB8 /* AllTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTaskTableViewCell.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				FFA64BBD29363BA80037091D /* Extension+UIColor.swift */,
 				FF37E22D293724230098EAFC /* Extension+UIView.swift */,
 				FFFC52F6293923D4004CA5D6 /* Extension+Date.swift */,
+				FF4A3540297AAB54005401FD /* Extension+AttributedString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				FFA64BA3293633B90037091D /* Category.swift in Sources */,
 				FF80201E295A1E1600F94AE9 /* NewTaskDateAndTimeCell.swift in Sources */,
 				FF37E232293743AF0098EAFC /* NewTaskListCollectionViewCell.swift in Sources */,
+				FF4A3541297AAB54005401FD /* Extension+AttributedString.swift in Sources */,
 				FF29C9672965F82A005C0EA3 /* NewTaskPriorityCell.swift in Sources */,
 				FFA64BC6293649C90037091D /* CardTableViewCell.swift in Sources */,
 				FF4251AA29658B9200DCA9D7 /* NewTaskCategoryCell.swift in Sources */,

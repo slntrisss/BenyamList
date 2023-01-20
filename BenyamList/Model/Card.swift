@@ -15,19 +15,20 @@ struct Card{
         switch self.type{
         case .today:
             for task in database.allTasks{
-                if let deadline = task.deadline, Calendar.current.isDateInToday(deadline){
+                if let deadline = task.deadline, Calendar.current.isDateInToday(deadline),
+                   task.status != .completed{
                     count += 1
                 }
             }
         case .missed:
             for task in database.allTasks{
-                if task.status == .misssed{
+                if task.status == .misssed, task.status != .completed{
                     count += 1
                 }
             }
         case .scheduled:
             for task in database.allTasks{
-                if task.deadline != nil{
+                if task.deadline != nil, task.status != .completed{
                     count += 1
                 }
             }

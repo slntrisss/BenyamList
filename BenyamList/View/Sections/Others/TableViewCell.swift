@@ -17,7 +17,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     
     static let identifier = "TableViewCell"
-    
+    var task: Task!
     var showCategoryLabel = true
     var showPriorityLabel = true
     var showStatusLabel = true
@@ -38,6 +38,12 @@ class TableViewCell: UITableViewCell {
     }
     
     func configure(with task: Task){
+        self.task = task
+        if task.status == .completed{
+            restyleTextLabels()
+            showLabels(task: task)
+            return
+        }
         title.text = task.title
         if let taskDescription = task.details{
             detail.text = taskDescription
@@ -47,6 +53,19 @@ class TableViewCell: UITableViewCell {
         timeLabel.text = getTime(from: task.deadline)
         
         showLabels(task: task)
+    }
+    
+    private func restyleTextLabels(){
+        let restyledTitleText = NSAttributedString(string: task.title).withStrikeThrough()
+        let restyledTimeLabel = NSAttributedString(string: getTime(from: task.deadline)).withStrikeThrough()
+        if let taskDescription = task.details{
+            let restyledDetailLabel = NSAttributedString(string: taskDescription).withStrikeThrough()
+            detail.attributedText = restyledDetailLabel
+        }else{
+            detail.text = ""
+        }
+        title.attributedText = restyledTitleText
+        timeLabel.attributedText = restyledTimeLabel
     }
     
     private func showLabels(task: Task){

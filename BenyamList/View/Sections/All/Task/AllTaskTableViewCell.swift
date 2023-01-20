@@ -40,6 +40,11 @@ class AllTaskTableViewCell: UITableViewCell {
     
     func configure(with task: Task){
         self.task = task
+        if task.status == .completed{
+            restyleTextLabels()
+            showLabels(task: task)
+            return
+        }
         title.text = task.title
         if let taskDescription = task.details{
             detail.text = taskDescription
@@ -49,6 +54,19 @@ class AllTaskTableViewCell: UITableViewCell {
         timeLabel.text = getTime(from: task.deadline)
         
         showLabels(task: task)
+    }
+    
+    private func restyleTextLabels(){
+        let restyledTitleText = NSAttributedString(string: task.title).withStrikeThrough()
+        let restyledTimeLabel = NSAttributedString(string: getTime(from: task.deadline)).withStrikeThrough()
+        if let taskDescription = task.details{
+            let restyledDetailLabel = NSAttributedString(string: taskDescription).withStrikeThrough()
+            detail.attributedText = restyledDetailLabel
+        }else{
+            detail.text = ""
+        }
+        title.attributedText = restyledTitleText
+        timeLabel.attributedText = restyledTimeLabel
     }
     
     private func showLabels(task: Task){

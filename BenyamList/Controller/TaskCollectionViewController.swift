@@ -28,7 +28,6 @@ class TaskCollectionViewController: UIViewController {
         tableView.register(TableViewCell.nib(), forCellReuseIdentifier: TableViewCell.identifier)
         
         if type == .Today || type == .Scheduled{
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis"), style: .done, target: self, action: #selector(editButtonPressed))
             getScheduleData()
         }else{
             getMissedData()
@@ -38,13 +37,6 @@ class TaskCollectionViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         tableView.frame = view.bounds
-    }
-    
-    @objc func editButtonPressed(){
-        let alert = UIAlertController(title: "Info...", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Sort", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alert, animated: true)
     }
 
 }
@@ -80,6 +72,22 @@ extension TaskCollectionViewController: UITableViewDataSource, UITableViewDelega
         if editingStyle == .delete{
             deleteTasks(at: indexPath)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let done = UIContextualAction(style: .normal, title: "Done"){[weak self]_,_,_ in
+            print("Done button pressed...")
+            self?.completeButtonPressed(at: indexPath)
+            tableView.reloadRows(at: [indexPath], with: .fade)
+            AppState.shared.reorderSortedCollection()
+        }
+        let delete = UIContextualAction(style: .destructive, title: "Delete") {[weak self] _, _, _ in
+            print("Delete button pressed...")
+            self?.deleteTasks(at: indexPath)
+        }
+        done.backgroundColor = .systemGreen
+        let swipe = UISwipeActionsConfiguration(actions: [delete, done])
+        return swipe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -144,6 +152,26 @@ extension TaskCollectionViewController{
 
 
 extension TaskCollectionViewController{
+    
+    private func completeButtonPressed(at indexPath: IndexPath){
+        let section = indexPath.section
+        let row = indexPath.row
+        taskLists[section][row].status = .completed
+        let id = taskLists[section][row].id
+        
+        if let index = database.allTasks.firstIndex(where: {$0.id == id}){
+            database.allTasks[index].status = .completed
+        }
+        
+        for (i, taskList) in database.taskLists.enumerated(){
+            if let index = taskList.tasks.firstIndex(where: {$0.id == id}){
+                database.taskLists[i].tasks[index].status = .completed
+            }
+        }
+        
+        AppState.shared.stateHasChanged()
+    }
+    
     //MARK: - Schedule/Today
     
     private func getScheduleData() {

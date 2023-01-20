@@ -125,12 +125,21 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 && editingStyle == .delete{
-            deleteTask(at: indexPath)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            AppState.shared.stateHasChanged()
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let done = UIContextualAction(style: .normal, title: "Done"){[weak self]_,_,_ in
+            print("Done button pressed...")
+            self?.completeButtonPressed(at: indexPath)
+            tableView.reloadRows(at: [indexPath], with: .fade)
+            AppState.shared.reorderSortedCollection()
         }
+        let delete = UIContextualAction(style: .destructive, title: "Delete") {[weak self] _, _, _ in
+            print("Delete button pressed...")
+            self?.deleteTask(at: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        done.backgroundColor = .systemGreen
+        let swipe = UISwipeActionsConfiguration(actions: [delete, done])
+        return swipe
     }
 }
 
@@ -147,6 +156,21 @@ extension TaskListViewController{
             if let index = database.taskLists[i].tasks.firstIndex(where: {$0.id == task?.id}){
                 database.taskLists[i].tasks.remove(at: index)
                 return
+            }
+        }
+        AppState.shared.stateHasChanged()
+    }
+    
+    private func completeButtonPressed(at indexPath: IndexPath){
+        tasks[indexPath.row].status = .completed
+        let id = tasks[indexPath.row].id
+        if let index = database.allTasks.firstIndex(where: {$0.id == id}){
+            database.allTasks[index].status = .completed
+        }
+        
+        for (i, taskList) in database.taskLists.enumerated(){
+            if let index = taskList.tasks.firstIndex(where: {$0.id == id}){
+                database.taskLists[i].tasks[index].status = .completed
             }
         }
         AppState.shared.stateHasChanged()

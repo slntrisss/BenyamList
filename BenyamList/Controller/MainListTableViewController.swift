@@ -57,7 +57,6 @@ class MainListTableViewController: UIViewController, UITableViewDelegate, UITabl
             newTaskVC.taskType = .new
             strongSelf.present(navBar, animated: true)
         }))
-        alert.addAction(UIAlertAction(title: "Sort", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Delete Task List", style: .destructive, handler: { [weak self] _ in
             guard let strongSelf = self else{
                 print("Error deleting task list in Main TaskListView")
@@ -119,7 +118,61 @@ class MainListTableViewController: UIViewController, UITableViewDelegate, UITabl
         present(navBar, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let done = UIContextualAction(style: .normal, title: "Done"){[weak self]_,_,_ in
+            print("Done button pressed...")
+            self?.completeButtonPressed(at: indexPath)
+            tableView.reloadRows(at: [indexPath], with: .fade)
+            AppState.shared.reorderSortedCollection()
+        }
+        let delete = UIContextualAction(style: .destructive, title: "Delete") {[weak self] _, _, _ in
+            print("Delete button pressed...")
+            self?.deleteTask(at: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        done.backgroundColor = .systemGreen
+        let swipe = UISwipeActionsConfiguration(actions: [delete, done])
+        return swipe
+    }
 
+}
+
+extension MainListTableViewController{
+    private func deleteTask(at indexPath: IndexPath){
+        let cell = tableView.cellForRow(at: indexPath) as! AllTaskTableViewCell
+        let id = cell.task.id
+        
+        if let index = database.allTasks.firstIndex(where: {$0.id == id}){
+            database.allTasks.remove(at: index)
+        }
+        
+        for (i, taskList) in database.taskLists.enumerated(){
+            if let index = taskList.tasks.firstIndex(where: {$0.id == id}){
+                database.taskLists[i].tasks.remove(at: index)
+            }
+        }
+        
+        AppState.shared.stateHasChanged()
+    }
+    
+    private func completeButtonPressed(at indexPath: IndexPath){
+        let cell = tableView.cellForRow(at: indexPath) as! AllTaskTableViewCell
+        let id = cell.task.id
+        
+        if let index = database.allTasks.firstIndex(where: {$0.id == id}){
+            database.allTasks[index].status = .completed
+        }
+        
+        for (i, taskList) in database.taskLists.enumerated(){
+            if let index = taskList.tasks.firstIndex(where: {$0.id == id}){
+                database.taskLists[i].tasks[index].status = .completed
+            }
+        }
+        
+        AppState.shared.stateHasChanged()
+    }
 }
 
 extension MainListTableViewController: TaskViewControllerDelegate{
