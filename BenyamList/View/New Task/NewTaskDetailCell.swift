@@ -30,6 +30,8 @@ class NewTaskDetailCell: UITableViewCell {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         field.leftViewMode = .always
         field.isUserInteractionEnabled = true
+        field.returnKeyType = .done
+        field.delegate = self
         field.addTarget(self, action: #selector(getText), for: .editingChanged)
         return field
     }()
@@ -62,9 +64,17 @@ class NewTaskDetailCell: UITableViewCell {
     @objc private func getText(){
         if let text = textField.text{
             delegate.textFieldDidEndEditing(with: text, and: self.cellType)
+            
         }
     }
     
+}
+
+extension NewTaskDetailCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 enum DescriptionCell{
