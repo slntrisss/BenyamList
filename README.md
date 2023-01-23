@@ -26,9 +26,8 @@ BenyamList is a simple iOS application to save Your daily tasks in order not to 
 
 
 ## App Screens
-
-#### Home
-<img src="screen_images/home.png" width="50">
+<img src="screen_images/home.png" width="200">
+<img src="screen_images/tasklist.png" width="200">
 
 ## Sources
 This app is inspired by Apple's "Reminders" app
